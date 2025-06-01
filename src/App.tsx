@@ -24,6 +24,27 @@ function App() {
     skills: ["UX", "Sketch", "Notion", "Adobe XD"],
   };
 
+  const backendProfileData = {
+    avatarSrc: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: "Sam Chen",
+    title: "Backend Engineer",
+    skills: ["Node.js", "Python", "AWS", "MongoDB"],
+  };
+
+  const fullstackProfileData = {
+    avatarSrc: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: "Maya Patel",
+    title: "Full Stack Developer",
+    skills: ["TypeScript", "React", "Node.js", "PostgreSQL"],
+  };
+
+  const devopsProfileData = {
+    avatarSrc: "https://images.pexels.com/photos/2406949/pexels-photo-2406949.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: "Chris Taylor",
+    title: "DevOps Engineer",
+    skills: ["Docker", "Kubernetes", "CI/CD", "Terraform"],
+  };
+
   // Sample messages data
   const messagesData = [
     {
@@ -71,15 +92,6 @@ function App() {
       )
     },
     {
-      type: 'messages',
-      component: (
-        <MessagesCard 
-          messages={messagesData}
-          onViewProfile={() => console.log("View profile clicked")}
-        />
-      )
-    },
-    {
       type: 'designer-profile',
       component: (
         <ProfileCard 
@@ -89,6 +101,54 @@ function App() {
           skills={designerProfileData.skills}
           onViewProfile={() => console.log("View resume clicked")}
           buttonLabel="View Resume"
+        />
+      )
+    },
+    {
+      type: 'backend-profile',
+      component: (
+        <ProfileCard 
+          avatarSrc={backendProfileData.avatarSrc}
+          name={backendProfileData.name}
+          title={backendProfileData.title}
+          skills={backendProfileData.skills}
+          onViewProfile={() => console.log("View profile clicked")}
+          buttonLabel="View Profile"
+        />
+      )
+    },
+    {
+      type: 'fullstack-profile',
+      component: (
+        <ProfileCard 
+          avatarSrc={fullstackProfileData.avatarSrc}
+          name={fullstackProfileData.name}
+          title={fullstackProfileData.title}
+          skills={fullstackProfileData.skills}
+          onViewProfile={() => console.log("View profile clicked")}
+          buttonLabel="View Profile"
+        />
+      )
+    },
+    {
+      type: 'devops-profile',
+      component: (
+        <ProfileCard 
+          avatarSrc={devopsProfileData.avatarSrc}
+          name={devopsProfileData.name}
+          title={devopsProfileData.title}
+          skills={devopsProfileData.skills}
+          onViewProfile={() => console.log("View profile clicked")}
+          buttonLabel="View Profile"
+        />
+      )
+    },
+    {
+      type: 'messages',
+      component: (
+        <MessagesCard 
+          messages={messagesData}
+          onViewProfile={() => console.log("View profile clicked")}
         />
       )
     },
