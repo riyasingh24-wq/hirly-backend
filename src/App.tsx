@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
+import SettingsCard from './components/SettingsCard';
 import ActionButtons from './components/ActionButtons';
 
 function App() {
@@ -89,6 +90,10 @@ function App() {
           onViewProfile={() => console.log("View profile clicked")}
         />
       )
+    },
+    {
+      type: 'settings',
+      component: <SettingsCard />
     }
   ];
 
