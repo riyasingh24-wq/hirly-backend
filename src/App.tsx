@@ -7,43 +7,44 @@ import ActionButtons from './components/ActionButtons';
 
 function App() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
+  const [savedCandidates, setSavedCandidates] = useState<typeof candidateProfiles>([]);
+  const [interestedCandidates, setInterestedCandidates] = useState<typeof candidateProfiles>([]);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Sample profile data
-  const profileData = {
-    avatarSrc: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "Alex Johnson",
-    title: "Front-End Developer",
-    skills: ["React", "Tailwind", "Figma"],
-  };
-
-  const designerProfileData = {
-    avatarSrc: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "Jordan Rivers",
-    title: "Product Designer",
-    skills: ["UX", "Sketch", "Notion", "Adobe XD"],
-  };
-
-  const backendProfileData = {
-    avatarSrc: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "Sam Chen",
-    title: "Backend Engineer",
-    skills: ["Node.js", "Python", "AWS", "MongoDB"],
-  };
-
-  const fullstackProfileData = {
-    avatarSrc: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "Maya Patel",
-    title: "Full Stack Developer",
-    skills: ["TypeScript", "React", "Node.js", "PostgreSQL"],
-  };
-
-  const devopsProfileData = {
-    avatarSrc: "https://images.pexels.com/photos/2406949/pexels-photo-2406949.jpeg?auto=compress&cs=tinysrgb&w=600",
-    name: "Chris Taylor",
-    title: "DevOps Engineer",
-    skills: ["Docker", "Kubernetes", "CI/CD", "Terraform"],
-  };
+  // All candidate profiles
+  const candidateProfiles = [
+    {
+      avatarSrc: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=600",
+      name: "Alex Johnson",
+      title: "Front-End Developer",
+      skills: ["React", "Tailwind", "Figma"],
+    },
+    {
+      avatarSrc: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600",
+      name: "Jordan Rivers",
+      title: "Product Designer",
+      skills: ["UX", "Sketch", "Notion", "Adobe XD"],
+    },
+    {
+      avatarSrc: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600",
+      name: "Sam Chen",
+      title: "Backend Engineer",
+      skills: ["Node.js", "Python", "AWS", "MongoDB"],
+    },
+    {
+      avatarSrc: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600",
+      name: "Maya Patel",
+      title: "Full Stack Developer",
+      skills: ["TypeScript", "React", "Node.js", "PostgreSQL"],
+    },
+    {
+      avatarSrc: "https://images.pexels.com/photos/2406949/pexels-photo-2406949.jpeg?auto=compress&cs=tinysrgb&w=600",
+      name: "Chris Taylor",
+      title: "DevOps Engineer",
+      skills: ["Docker", "Kubernetes", "CI/CD", "Terraform"],
+    }
+  ];
 
   // Sample messages data
   const messagesData = [
@@ -77,67 +78,37 @@ function App() {
     }
   ];
 
+  const handleNextCandidate = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentCandidateIndex((prev) => 
+        prev === candidateProfiles.length - 1 ? 0 : prev + 1
+      );
+      setIsAnimating(false);
+    }, 300);
+  };
+
+  const handleCandidateAction = (action: 'pass' | 'save' | 'like') => {
+    const currentCandidate = candidateProfiles[currentCandidateIndex];
+    
+    if (action === 'save') {
+      setSavedCandidates(prev => [...prev, currentCandidate]);
+    } else if (action === 'like') {
+      setInterestedCandidates(prev => [...prev, currentCandidate]);
+    }
+    
+    handleNextCandidate();
+  };
+
   const cards = [
     {
-      type: 'profile',
+      type: 'candidates',
       component: (
         <ProfileCard 
-          avatarSrc={profileData.avatarSrc}
-          name={profileData.name}
-          title={profileData.title}
-          skills={profileData.skills}
-          onViewProfile={() => console.log("View profile clicked")}
-          buttonLabel="View Profile"
-        />
-      )
-    },
-    {
-      type: 'designer-profile',
-      component: (
-        <ProfileCard 
-          avatarSrc={designerProfileData.avatarSrc}
-          name={designerProfileData.name}
-          title={designerProfileData.title}
-          skills={designerProfileData.skills}
-          onViewProfile={() => console.log("View resume clicked")}
-          buttonLabel="View Resume"
-        />
-      )
-    },
-    {
-      type: 'backend-profile',
-      component: (
-        <ProfileCard 
-          avatarSrc={backendProfileData.avatarSrc}
-          name={backendProfileData.name}
-          title={backendProfileData.title}
-          skills={backendProfileData.skills}
-          onViewProfile={() => console.log("View profile clicked")}
-          buttonLabel="View Profile"
-        />
-      )
-    },
-    {
-      type: 'fullstack-profile',
-      component: (
-        <ProfileCard 
-          avatarSrc={fullstackProfileData.avatarSrc}
-          name={fullstackProfileData.name}
-          title={fullstackProfileData.title}
-          skills={fullstackProfileData.skills}
-          onViewProfile={() => console.log("View profile clicked")}
-          buttonLabel="View Profile"
-        />
-      )
-    },
-    {
-      type: 'devops-profile',
-      component: (
-        <ProfileCard 
-          avatarSrc={devopsProfileData.avatarSrc}
-          name={devopsProfileData.name}
-          title={devopsProfileData.title}
-          skills={devopsProfileData.skills}
+          avatarSrc={candidateProfiles[currentCandidateIndex].avatarSrc}
+          name={candidateProfiles[currentCandidateIndex].name}
+          title={candidateProfiles[currentCandidateIndex].title}
+          skills={candidateProfiles[currentCandidateIndex].skills}
           onViewProfile={() => console.log("View profile clicked")}
           buttonLabel="View Profile"
         />
@@ -168,14 +139,6 @@ function App() {
     if (!isAnimating) {
       setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
     }
-  };
-
-  const handleCardAction = (action: 'dismiss' | 'favorite' | 'like') => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      handleNext();
-      setIsAnimating(false);
-    }, 300);
   };
 
   return (
@@ -211,11 +174,13 @@ function App() {
         >
           {cards[currentCardIndex].component}
         </div>
-        <ActionButtons 
-          onDismiss={() => handleCardAction('dismiss')}
-          onFavorite={() => handleCardAction('favorite')}
-          onLike={() => handleCardAction('like')}
-        />
+        {currentCardIndex === 0 && (
+          <ActionButtons 
+            onDismiss={() => handleCandidateAction('pass')}
+            onFavorite={() => handleCandidateAction('save')}
+            onLike={() => handleCandidateAction('like')}
+          />
+        )}
       </div>
     </div>
   );
