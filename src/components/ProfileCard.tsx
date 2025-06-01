@@ -21,9 +21,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   buttonLabel = "View Profile"
 }) => {
   return (
-    <div className="relative w-full max-w-xs mx-auto">
+    <div className="relative w-[320px]">
       {/* Card with glassmorphism effect */}
-      <div className="flex flex-col items-center p-8 pt-10 pb-8 rounded-3xl 
+      <div className="flex flex-col items-center h-[480px] p-8 rounded-3xl 
                     bg-white/10 backdrop-blur-md border border-white/20
                     shadow-xl shadow-black/20">
         
@@ -44,7 +44,9 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
         
         {/* Button */}
-        <GradientButton label={buttonLabel} onClick={onViewProfile} />
+        <div className="mt-auto">
+          <GradientButton label={buttonLabel} onClick={onViewProfile} />
+        </div>
       </div>
       
       {/* Card shadow/reflection effect */}

@@ -17,15 +17,15 @@ const SettingsCard: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-xs mx-auto">
-      <div className="flex flex-col p-8 rounded-3xl 
+    <div className="relative w-[320px]">
+      <div className="flex flex-col h-[480px] p-8 rounded-3xl 
                     bg-white/10 backdrop-blur-md border border-white/20
                     shadow-xl shadow-black/20">
         
         <h2 className="text-2xl font-bold text-white tracking-wide mb-6 text-center
                      text-shadow-glow">Settings</h2>
         
-        <div className="space-y-4 mb-6">
+        <div className="flex-1 space-y-4">
           <ToggleSwitch
             label="Dark Mode"
             isOn={settings.darkMode}
@@ -43,10 +43,12 @@ const SettingsCard: React.FC = () => {
           />
         </div>
         
-        <GradientButton 
-          label="Log Out"
-          onClick={() => console.log('Log out clicked')}
-        />
+        <div className="mt-auto">
+          <GradientButton 
+            label="Log Out"
+            onClick={() => console.log('Log out clicked')}
+          />
+        </div>
       </div>
       
       <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-[95%] h-4 

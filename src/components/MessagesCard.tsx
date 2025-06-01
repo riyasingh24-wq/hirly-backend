@@ -19,9 +19,9 @@ const MessagesCard: React.FC<MessagesCardProps> = ({
   onViewProfile
 }) => {
   return (
-    <div className="relative w-full max-w-xs mx-auto">
+    <div className="relative w-[320px]">
       {/* Card with glassmorphism effect */}
-      <div className="flex flex-col p-8 rounded-3xl 
+      <div className="flex flex-col h-[480px] p-8 rounded-3xl 
                     bg-white/10 backdrop-blur-md border border-white/20
                     shadow-xl shadow-black/20">
         
@@ -30,7 +30,7 @@ const MessagesCard: React.FC<MessagesCardProps> = ({
                      text-shadow-glow">Messages</h2>
         
         {/* Messages list with custom scrollbar */}
-        <div className="space-y-4 max-h-[400px] overflow-y-auto custom-scrollbar">
+        <div className="flex-1 space-y-4 overflow-y-auto custom-scrollbar">
           {messages.map((message) => (
             <MessagePreview
               key={message.id}
