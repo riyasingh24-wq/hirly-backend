@@ -15,6 +15,13 @@ function App() {
     skills: ["React", "Tailwind", "Figma"],
   };
 
+  const designerProfileData = {
+    avatarSrc: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: "Jordan Rivers",
+    title: "Product Designer",
+    skills: ["UX", "Sketch", "Notion", "Adobe XD"],
+  };
+
   // Sample messages data
   const messagesData = [
     {
@@ -57,6 +64,20 @@ function App() {
           title={profileData.title}
           skills={profileData.skills}
           onViewProfile={() => console.log("View profile clicked")}
+          buttonLabel="View Profile"
+        />
+      )
+    },
+    {
+      type: 'designer-profile',
+      component: (
+        <ProfileCard 
+          avatarSrc={designerProfileData.avatarSrc}
+          name={designerProfileData.name}
+          title={designerProfileData.title}
+          skills={designerProfileData.skills}
+          onViewProfile={() => console.log("View resume clicked")}
+          buttonLabel="View Resume"
         />
       )
     },

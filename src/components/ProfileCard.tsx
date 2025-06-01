@@ -9,6 +9,7 @@ interface ProfileCardProps {
   title: string;
   skills: string[];
   onViewProfile?: () => void;
+  buttonLabel?: string;
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
@@ -16,7 +17,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   name,
   title,
   skills,
-  onViewProfile
+  onViewProfile,
+  buttonLabel = "View Profile"
 }) => {
   return (
     <div className="relative w-full max-w-xs mx-auto">
@@ -42,7 +44,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         </div>
         
         {/* Button */}
-        <GradientButton label="View Profile" onClick={onViewProfile} />
+        <GradientButton label={buttonLabel} onClick={onViewProfile} />
       </div>
       
       {/* Card shadow/reflection effect */}
