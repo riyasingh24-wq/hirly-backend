@@ -7,6 +7,7 @@ import ActionButtons from './components/ActionButtons';
 
 function App() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | 'up' | null>(null);
 
   // Sample profile data
   const profileData = {
@@ -105,6 +106,43 @@ function App() {
     setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
   };
 
+  const handleDismiss = () => {
+    setSlideDirection('left');
+    setTimeout(() => {
+      handleNext();
+      setSlideDirection(null);
+    }, 300);
+  };
+
+  const handleFavorite = () => {
+    setSlideDirection('up');
+    setTimeout(() => {
+      handleNext();
+      setSlideDirection(null);
+    }, 300);
+  };
+
+  const handleLike = () => {
+    setSlideDirection('right');
+    setTimeout(() => {
+      handleNext();
+      setSlideDirection(null);
+    }, 300);
+  };
+
+  const getSlideAnimation = () => {
+    switch (slideDirection) {
+      case 'left':
+        return 'translate-x-[-100vw] opacity-0';
+      case 'right':
+        return 'translate-x-[100vw] opacity-0';
+      case 'up':
+        return 'translate-y-[-100vh] opacity-0';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 bg-gradient-to-b from-red-900 to-purple-900">
       {/* Navigation Arrows */}
@@ -133,13 +171,15 @@ function App() {
       </button>
 
       <div className="flex flex-col items-center">
-        <div className="transition-all duration-300 transform">
+        <div 
+          className={`transition-all duration-300 transform ${getSlideAnimation()}`}
+        >
           {cards[currentCardIndex].component}
         </div>
         <ActionButtons 
-          onDismiss={() => handleNext()}
-          onFavorite={() => console.log("Favorite clicked")}
-          onLike={() => console.log("Like clicked")}
+          onDismiss={handleDismiss}
+          onFavorite={handleFavorite}
+          onLike={handleLike}
         />
       </div>
     </div>
