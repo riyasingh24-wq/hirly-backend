@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
 import ActionButtons from './components/ActionButtons';
 
 function App() {
-  const [activeView, setActiveView] = useState<'profile' | 'messages'>('profile');
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
   // Sample profile data
   const profileData = {
@@ -46,44 +47,73 @@ function App() {
     }
   ];
 
-  // Event handlers
-  const handleViewProfile = () => {
-    console.log("View profile clicked");
+  const cards = [
+    {
+      type: 'profile',
+      component: (
+        <ProfileCard 
+          avatarSrc={profileData.avatarSrc}
+          name={profileData.name}
+          title={profileData.title}
+          skills={profileData.skills}
+          onViewProfile={() => console.log("View profile clicked")}
+        />
+      )
+    },
+    {
+      type: 'messages',
+      component: (
+        <MessagesCard 
+          messages={messagesData}
+          onViewProfile={() => console.log("View profile clicked")}
+        />
+      )
+    }
+  ];
+
+  const handlePrevious = () => {
+    setCurrentCardIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
   };
 
-  const handleDismiss = () => {
-    setActiveView(activeView === 'profile' ? 'messages' : 'profile');
-  };
-
-  const handleFavorite = () => {
-    console.log("Favorite clicked");
-  };
-
-  const handleLike = () => {
-    console.log("Like clicked");
+  const handleNext = () => {
+    setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
   };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 bg-gradient-to-b from-red-900 to-purple-900">
+      {/* Navigation Arrows */}
+      <button
+        onClick={handlePrevious}
+        className="fixed left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full 
+                 bg-white/10 backdrop-blur-md border border-white/10
+                 flex items-center justify-center
+                 transition-all duration-300
+                 hover:bg-white/20 hover:scale-105
+                 active:scale-95 focus:outline-none"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+
+      <button
+        onClick={handleNext}
+        className="fixed right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full 
+                 bg-white/10 backdrop-blur-md border border-white/10
+                 flex items-center justify-center
+                 transition-all duration-300
+                 hover:bg-white/20 hover:scale-105
+                 active:scale-95 focus:outline-none"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
+
       <div className="flex flex-col items-center">
-        {activeView === 'profile' ? (
-          <ProfileCard 
-            avatarSrc={profileData.avatarSrc}
-            name={profileData.name}
-            title={profileData.title}
-            skills={profileData.skills}
-            onViewProfile={handleViewProfile}
-          />
-        ) : (
-          <MessagesCard 
-            messages={messagesData}
-            onViewProfile={handleViewProfile}
-          />
-        )}
+        <div className="transition-all duration-300 transform">
+          {cards[currentCardIndex].component}
+        </div>
         <ActionButtons 
-          onDismiss={handleDismiss}
-          onFavorite={handleFavorite}
-          onLike={handleLike}
+          onDismiss={() => handleNext()}
+          onFavorite={() => console.log("Favorite clicked")}
+          onLike={() => console.log("Like clicked")}
         />
       </div>
     </div>
