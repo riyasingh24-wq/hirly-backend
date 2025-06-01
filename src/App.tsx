@@ -70,6 +70,15 @@ function App() {
       )
     },
     {
+      type: 'messages',
+      component: (
+        <MessagesCard 
+          messages={messagesData}
+          onViewProfile={() => console.log("View profile clicked")}
+        />
+      )
+    },
+    {
       type: 'designer-profile',
       component: (
         <ProfileCard 
@@ -79,15 +88,6 @@ function App() {
           skills={designerProfileData.skills}
           onViewProfile={() => console.log("View resume clicked")}
           buttonLabel="View Resume"
-        />
-      )
-    },
-    {
-      type: 'messages',
-      component: (
-        <MessagesCard 
-          messages={messagesData}
-          onViewProfile={() => console.log("View profile clicked")}
         />
       )
     },
