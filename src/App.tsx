@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
 import SettingsCard from './components/SettingsCard';
@@ -157,18 +158,53 @@ function App() {
     }
   ];
 
-  const handleCardAction = (action: 'dismiss' | 'favorite' | 'like') => {
+  const handlePrevious = () => {
     if (!isAnimating) {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
-        setIsAnimating(false);
-      }, 300);
+      setCurrentCardIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
     }
+  };
+
+  const handleNext = () => {
+    if (!isAnimating) {
+      setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
+    }
+  };
+
+  const handleCardAction = (action: 'dismiss' | 'favorite' | 'like') => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      handleNext();
+      setIsAnimating(false);
+    }, 300);
   };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 bg-gradient-to-b from-red-900 to-purple-900">
+      {/* Navigation Arrows */}
+      <button
+        onClick={handlePrevious}
+        className="fixed left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full 
+                 bg-white/10 backdrop-blur-md border border-white/10
+                 flex items-center justify-center
+                 transition-all duration-300
+                 hover:bg-white/20 hover:scale-105
+                 active:scale-95 focus:outline-none"
+      >
+        <ChevronLeft className="w-6 h-6 text-white" />
+      </button>
+
+      <button
+        onClick={handleNext}
+        className="fixed right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full 
+                 bg-white/10 backdrop-blur-md border border-white/10
+                 flex items-center justify-center
+                 transition-all duration-300
+                 hover:bg-white/20 hover:scale-105
+                 active:scale-95 focus:outline-none"
+      >
+        <ChevronRight className="w-6 h-6 text-white" />
+      </button>
+
       <div className="flex flex-col items-center">
         <div 
           className={`transition-all duration-300 transform ${isAnimating ? 'opacity-0 translate-x-[-100vw]' : ''}`}
