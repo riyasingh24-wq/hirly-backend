@@ -83,7 +83,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
         transition-all duration-300 ease-in-out
         ${isExpanded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[20px] pointer-events-none'}
       `}>
-        <div className="mt-32">
+        <div className="mt-32 h-[calc(600px-8rem)] overflow-y-auto scrollbar-hide">
           <h2 className="text-2xl font-bold text-white mb-2">{job.title}</h2>
           <h3 className="text-xl text-white/80 mb-4">{job.company}</h3>
 
@@ -146,7 +146,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             </div>
           </div>
 
-          <div className="text-white/60 text-sm">
+          <div className="text-white/60 text-sm mb-6">
             <p>• Flexible working hours</p>
             <p>• Regular team events</p>
             <p>• Learning & development budget</p>
