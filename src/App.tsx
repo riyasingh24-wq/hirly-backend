@@ -6,6 +6,7 @@ import SettingsCard from './components/SettingsCard';
 import ActionButtons from './components/ActionButtons';
 import Dashboard from './components/Dashboard';
 import CoachCard from './components/CoachCard';
+import Iridescence from './components/Iridescence';
 
 function App() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -191,7 +192,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4 bg-gradient-to-b from-red-900 to-purple-900">
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
+      <Iridescence 
+        color={[0.4, 0.2, 0.8]} // Deeper purple/blue color
+        speed={0.2} // Much slower speed for subtle effect
+        amplitude={0.05} // Keeping the same amplitude
+      />
+      
       {/* Navigation Arrows */}
       <button
         onClick={handlePrevious}
