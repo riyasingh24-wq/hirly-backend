@@ -362,15 +362,15 @@ function App() {
         >
           {cards[currentCardIndex].component}
         </div>
-        {currentCardIndex === 0 && selectedRole === 'employer' && (
+        {currentCardIndex === 0 && (
           <div className={`
             transition-all duration-300
             ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}
           `}>
             <ActionButtons 
-              onDismiss={() => handleCandidateAction('pass')}
-              onFavorite={() => handleCandidateAction('save')}
-              onLike={() => handleCandidateAction('like')}
+              onDismiss={() => selectedRole === 'employer' ? handleCandidateAction('pass') : console.log('Pass job')}
+              onFavorite={() => selectedRole === 'employer' ? handleCandidateAction('save') : console.log('Save job')}
+              onLike={() => selectedRole === 'employer' ? handleCandidateAction('like') : console.log('Apply to job')}
             />
           </div>
         )}
