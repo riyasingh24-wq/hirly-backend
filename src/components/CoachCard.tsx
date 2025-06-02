@@ -92,13 +92,15 @@ const CoachCard: React.FC<CoachCardProps> = ({ onStartSession = () => {} }) => {
                     shadow-xl shadow-black/20 overflow-hidden">
         
         {/* Orb Background */}
-        <div className="absolute inset-0 z-0">
-          <Orb
-            hoverIntensity={0.5}
-            rotateOnHover={true}
-            hue={0}
-            forceHoverState={false}
-          />
+        <div className="absolute inset-0 z-0 flex items-center justify-center">
+          <div className="w-[350px] h-[480px]">
+            <Orb
+              hoverIntensity={0.5}
+              rotateOnHover={true}
+              hue={0}
+              forceHoverState={false}
+            />
+          </div>
         </div>
         
         <div className="relative z-10">
