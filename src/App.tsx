@@ -4,6 +4,7 @@ import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
 import SettingsCard from './components/SettingsCard';
 import ActionButtons from './components/ActionButtons';
+import Dashboard from './components/Dashboard';
 
 function App() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -146,10 +147,13 @@ function App() {
       type: 'messages',
       component: (
         <MessagesCard 
-          messages={messagesData}
           onViewProfile={() => console.log("View profile clicked")}
         />
       )
+    },
+    {
+      type: 'dashboard',
+      component: <Dashboard />
     },
     {
       type: 'settings',
@@ -171,6 +175,14 @@ function App() {
       setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
       setTimeout(() => setIsAnimating(false), 300);
     }
+  };
+
+  const handleViewProfile = () => {
+    console.log('View Profile clicked');
+  };
+
+  const handleAction = (action: 'star' | 'heart') => {
+    console.log(`${action} action clicked`);
   };
 
   return (
