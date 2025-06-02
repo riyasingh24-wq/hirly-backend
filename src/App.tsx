@@ -15,14 +15,84 @@ function App() {
   const [selectedRole, setSelectedRole] = useState<'candidate' | 'employer' | null>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
+  const [currentJobIndex, setCurrentJobIndex] = useState(0);
   const [savedCandidates, setSavedCandidates] = useState<typeof candidateProfiles>([]);
   const [interestedCandidates, setInterestedCandidates] = useState<typeof candidateProfiles>([]);
+  const [savedJobs, setSavedJobs] = useState<typeof jobListings>([]);
+  const [appliedJobs, setAppliedJobs] = useState<typeof jobListings>([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  // Job listings data
+  const jobListings = [
+    {
+      company: "Google",
+      title: "Senior Frontend Developer",
+      location: "Mountain View, CA (Remote)",
+      type: "Full-time",
+      salary: "$120k - $180k",
+      posted: "2 days ago",
+      requirements: [
+        "5+ years of React experience",
+        "Strong TypeScript skills",
+        "Experience with large-scale applications",
+        "Bachelor's degree in CS or related field"
+      ],
+      description: "Join our team to build the next generation of web applications. You'll work with cutting-edge technologies and collaborate with world-class engineers to create products that impact millions of users.",
+      benefits: [
+        "Competitive salary and equity",
+        "Comprehensive health coverage",
+        "Flexible work arrangements",
+        "Professional development budget"
+      ]
+    },
+    {
+      company: "Meta",
+      title: "Full Stack Engineer",
+      location: "San Francisco, CA",
+      type: "Full-time",
+      salary: "$130k - $190k",
+      posted: "1 day ago",
+      requirements: [
+        "4+ years of full stack development",
+        "Experience with React and Node.js",
+        "Strong system design skills",
+        "Bachelor's degree in CS or related field"
+      ],
+      description: "Build and scale the next generation of social media platforms. Work on challenging problems that impact billions of users worldwide.",
+      benefits: [
+        "Competitive compensation",
+        "Health and wellness benefits",
+        "Remote work options",
+        "Learning and development"
+      ]
+    },
+    {
+      company: "Microsoft",
+      title: "Software Engineer",
+      location: "Seattle, WA (Hybrid)",
+      type: "Full-time",
+      salary: "$110k - $170k",
+      posted: "3 days ago",
+      requirements: [
+        "3+ years of software development",
+        "Experience with C# and .NET",
+        "Cloud platform knowledge",
+        "Bachelor's degree in CS or related field"
+      ],
+      description: "Join our team to build enterprise solutions that help businesses transform and grow in the digital age.",
+      benefits: [
+        "Competitive salary",
+        "Health insurance",
+        "401(k) matching",
+        "Professional development"
+      ]
+    }
+  ];
 
   // All candidate profiles
   const candidateProfiles = [
@@ -137,6 +207,21 @@ function App() {
     handleNextCandidate();
   };
 
+  const handleJobAction = (action: 'pass' | 'save' | 'like') => {
+    const currentJob = jobListings[currentJobIndex];
+    
+    if (action === 'like') {
+      setAppliedJobs(prev => [...prev, currentJob]);
+    } else if (action === 'save') {
+      setSavedJobs(prev => [...prev, currentJob]);
+    }
+    
+    // Move to next job
+    setCurrentJobIndex(prev => 
+      prev === jobListings.length - 1 ? 0 : prev + 1
+    );
+  };
+
   const menuItems = selectedRole === 'employer' ? [
     { icon: <Users className="w-5 h-5" />, label: 'Candidates', index: 0 },
     { icon: <MessageSquare className="w-5 h-5" />, label: 'Messages', index: 1 },
@@ -193,7 +278,7 @@ function App() {
   ] : [
     {
       type: 'jobs',
-      component: <JobCard />
+      component: <JobCard job={jobListings[currentJobIndex]} />
     },
     {
       type: 'messages',
@@ -368,9 +453,9 @@ function App() {
             ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}
           `}>
             <ActionButtons 
-              onDismiss={() => selectedRole === 'employer' ? handleCandidateAction('pass') : console.log('Pass job')}
-              onFavorite={() => selectedRole === 'employer' ? handleCandidateAction('save') : console.log('Save job')}
-              onLike={() => selectedRole === 'employer' ? handleCandidateAction('like') : console.log('Apply to job')}
+              onDismiss={() => selectedRole === 'employer' ? handleCandidateAction('pass') : handleJobAction('pass')}
+              onFavorite={() => selectedRole === 'employer' ? handleCandidateAction('save') : handleJobAction('save')}
+              onLike={() => selectedRole === 'employer' ? handleCandidateAction('like') : handleJobAction('like')}
             />
           </div>
         )}
