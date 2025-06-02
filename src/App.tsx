@@ -199,6 +199,11 @@ function App() {
         amplitude={0.05} // Keeping the same amplitude
       />
       
+      {/* Logo */}
+      <div className="fixed top-8 left-8 z-20">
+        <h1 className="app-logo">Hirly</h1>
+      </div>
+
       {/* Navigation Arrows */}
       <button
         onClick={handlePrevious}
