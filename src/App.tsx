@@ -8,8 +8,10 @@ import Dashboard from './components/Dashboard';
 import CoachCard from './components/CoachCard';
 import Iridescence from './components/Iridescence';
 import CompanyProfileCard from './components/CompanyProfileCard';
+import LandingPage from './components/LandingPage';
 
 function App() {
+  const [selectedRole, setSelectedRole] = useState<'candidate' | 'employer' | null>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
   const [savedCandidates, setSavedCandidates] = useState<typeof candidateProfiles>([]);
@@ -222,6 +224,10 @@ function App() {
     setCurrentCardIndex(index);
     setIsMenuOpen(false);
   };
+
+  if (!selectedRole) {
+    return <LandingPage onSelectRole={setSelectedRole} />;
+  }
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
