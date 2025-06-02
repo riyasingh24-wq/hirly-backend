@@ -9,6 +9,7 @@ interface JobCardProps {
     type: string;
     salary: string;
     posted: string;
+    logo: string;
     requirements: string[];
     description: string;
     benefits: string[];
@@ -29,8 +30,12 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
       `}
     >
       {/* Company Logo */}
-      <div className="absolute top-6 left-6 w-16 h-16 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center">
-        <Building2 className="w-8 h-8 text-white" />
+      <div className="absolute top-6 left-6 w-16 h-16 rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center overflow-hidden">
+        <img 
+          src={job.logo} 
+          alt={`${job.company} logo`}
+          className="w-full h-full object-contain p-2"
+        />
       </div>
 
       {/* Job Info */}
@@ -152,6 +157,9 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             <p>• Learning & development budget</p>
             <p>• Health & wellness programs</p>
           </div>
+
+          {/* Extra padding at bottom for better scrolling */}
+          <div className="h-24"></div>
         </div>
       </div>
     </div>

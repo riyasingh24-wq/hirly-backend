@@ -36,6 +36,7 @@ function App() {
       type: "Full-time",
       salary: "$120k - $180k",
       posted: "2 days ago",
+      logo: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
       requirements: [
         "5+ years of React experience",
         "Strong TypeScript skills",
@@ -57,6 +58,7 @@ function App() {
       type: "Full-time",
       salary: "$130k - $190k",
       posted: "1 day ago",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/2560px-Meta_Platforms_Inc._logo.svg.png",
       requirements: [
         "4+ years of full stack development",
         "Experience with React and Node.js",
@@ -78,6 +80,7 @@ function App() {
       type: "Full-time",
       salary: "$110k - $170k",
       posted: "3 days ago",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/2560px-Microsoft_logo.svg.png",
       requirements: [
         "3+ years of software development",
         "Experience with C# and .NET",
