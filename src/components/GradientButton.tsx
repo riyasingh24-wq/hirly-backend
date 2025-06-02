@@ -1,22 +1,31 @@
 import React from 'react';
 
 interface GradientButtonProps {
-  label: string;
-  onClick?: () => void;
+  onClick: () => void;
+  className?: string;
+  children: React.ReactNode;
 }
 
-const GradientButton: React.FC<GradientButtonProps> = ({ label, onClick }) => {
+const GradientButton: React.FC<GradientButtonProps> = ({ 
+  onClick, 
+  className = '',
+  children 
+}) => {
   return (
     <button
       onClick={onClick}
-      className="w-full py-3 px-6 rounded-xl font-semibold text-white text-lg
-                bg-gradient-to-r from-purple-600 to-pink-500
-                transition-all duration-300 transform
-                hover:from-purple-700 hover:to-pink-600
-                hover:shadow-lg hover:shadow-purple-500/30
-                active:scale-[0.98] focus:outline-none"
+      className={`
+        relative px-6 py-3 rounded-xl
+        bg-gradient-to-r from-purple-600 to-red-600
+        text-white font-semibold
+        transition-all duration-300
+        hover:from-purple-500 hover:to-red-500
+        hover:scale-105 active:scale-95
+        focus:outline-none focus:ring-2 focus:ring-purple-500/50
+        ${className}
+      `}
     >
-      {label}
+      {children}
     </button>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
@@ -11,6 +11,9 @@ function App() {
   const [savedCandidates, setSavedCandidates] = useState<typeof candidateProfiles>([]);
   const [interestedCandidates, setInterestedCandidates] = useState<typeof candidateProfiles>([]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
 
   // All candidate profiles
   const candidateProfiles = [
@@ -78,6 +81,31 @@ function App() {
     }
   ];
 
+  const handleSwipeStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleSwipeMove = (e: React.TouchEvent) => {
+    if (!touchStartX.current) return;
+    
+    const currentX = e.touches[0].clientX;
+    const diff = currentX - touchStartX.current;
+    
+    if (Math.abs(diff) > 50) {
+      setSwipeDirection(diff > 0 ? 'right' : 'left');
+    }
+  };
+
+  const handleSwipeEnd = () => {
+    if (swipeDirection === 'left') {
+      handleNext();
+    } else if (swipeDirection === 'right') {
+      handlePrevious();
+    }
+    setSwipeDirection(null);
+    touchStartX.current = null;
+  };
+
   const handleNextCandidate = () => {
     setIsAnimating(true);
     setTimeout(() => {
@@ -131,13 +159,17 @@ function App() {
 
   const handlePrevious = () => {
     if (!isAnimating) {
+      setIsAnimating(true);
       setCurrentCardIndex((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
+      setTimeout(() => setIsAnimating(false), 300);
     }
   };
 
   const handleNext = () => {
     if (!isAnimating) {
+      setIsAnimating(true);
       setCurrentCardIndex((prev) => (prev === cards.length - 1 ? 0 : prev + 1));
+      setTimeout(() => setIsAnimating(false), 300);
     }
   };
 
@@ -151,7 +183,8 @@ function App() {
                  flex items-center justify-center
                  transition-all duration-300
                  hover:bg-white/20 hover:scale-105
-                 active:scale-95 focus:outline-none"
+                 active:scale-95 focus:outline-none
+                 z-10"
       >
         <ChevronLeft className="w-6 h-6 text-white" />
       </button>
@@ -163,23 +196,39 @@ function App() {
                  flex items-center justify-center
                  transition-all duration-300
                  hover:bg-white/20 hover:scale-105
-                 active:scale-95 focus:outline-none"
+                 active:scale-95 focus:outline-none
+                 z-10"
       >
         <ChevronRight className="w-6 h-6 text-white" />
       </button>
 
       <div className="flex flex-col items-center">
         <div 
-          className={`transition-all duration-300 transform ${isAnimating ? 'opacity-0 translate-x-[-100vw]' : ''}`}
+          ref={cardRef}
+          onTouchStart={handleSwipeStart}
+          onTouchMove={handleSwipeMove}
+          onTouchEnd={handleSwipeEnd}
+          className={`
+            transition-all duration-300 transform
+            ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}
+            ${swipeDirection === 'left' ? 'translate-x-[-100vw]' : ''}
+            ${swipeDirection === 'right' ? 'translate-x-[100vw]' : ''}
+            hover:scale-[1.02] transition-transform
+          `}
         >
           {cards[currentCardIndex].component}
         </div>
         {currentCardIndex === 0 && (
-          <ActionButtons 
-            onDismiss={() => handleCandidateAction('pass')}
-            onFavorite={() => handleCandidateAction('save')}
-            onLike={() => handleCandidateAction('like')}
-          />
+          <div className={`
+            transition-all duration-300
+            ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}
+          `}>
+            <ActionButtons 
+              onDismiss={() => handleCandidateAction('pass')}
+              onFavorite={() => handleCandidateAction('save')}
+              onLike={() => handleCandidateAction('like')}
+            />
+          </div>
         )}
       </div>
     </div>
