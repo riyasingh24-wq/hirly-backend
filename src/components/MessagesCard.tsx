@@ -254,11 +254,18 @@ const MessagesCard: React.FC<MessagesCardProps> = ({ onViewProfile }) => {
   };
 
   return (
-    <div className="w-[700px] bg-white/10 backdrop-blur-md rounded-2xl p-6
-                    border border-white/20 shadow-xl overflow-hidden">
+    <div className={`
+      bg-white/10 backdrop-blur-md rounded-2xl p-6
+      border border-white/20 shadow-xl overflow-hidden
+      transition-all duration-300 ease-in-out
+      ${selectedMessage ? 'w-[700px]' : 'w-[350px]'}
+    `}>
       <div className="flex h-[500px]">
         {/* Messages List */}
-        <div className={`flex flex-col ${selectedMessage ? 'w-1/3 pr-4' : 'w-full'}`}>
+        <div className={`
+          flex flex-col transition-all duration-300 ease-in-out
+          ${selectedMessage ? 'w-1/3 pr-4' : 'w-full'}
+        `}>
           {/* Header */}
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-white mb-2">Messages</h2>
@@ -310,7 +317,11 @@ const MessagesCard: React.FC<MessagesCardProps> = ({ onViewProfile }) => {
 
         {/* Conversation View */}
         {selectedMessage && selectedChat && (
-          <div className="w-2/3 pl-4 border-l border-white/10 flex flex-col">
+          <div className={`
+            w-2/3 pl-4 border-l border-white/10 flex flex-col
+            transition-all duration-300 ease-in-out
+            ${selectedMessage ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}
+          `}>
             {/* Chat Header */}
             <div className="flex items-center space-x-3 mb-6">
               <div className="relative">
