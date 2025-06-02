@@ -7,6 +7,7 @@ import ActionButtons from './components/ActionButtons';
 import Dashboard from './components/Dashboard';
 import CoachCard from './components/CoachCard';
 import Iridescence from './components/Iridescence';
+import CompanyProfileCard from './components/CompanyProfileCard';
 
 function App() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -162,6 +163,10 @@ function App() {
     {
       type: 'coach',
       component: <CoachCard onStartSession={() => console.log("Start session clicked")} />
+    },
+    {
+      type: 'company',
+      component: <CompanyProfileCard />
     },
     {
       type: 'settings',
