@@ -5,6 +5,7 @@ import MessagesCard from './components/MessagesCard';
 import SettingsCard from './components/SettingsCard';
 import ActionButtons from './components/ActionButtons';
 import Dashboard from './components/Dashboard';
+import CoachCard from './components/CoachCard';
 
 function App() {
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -154,6 +155,10 @@ function App() {
     {
       type: 'dashboard',
       component: <Dashboard />
+    },
+    {
+      type: 'coach',
+      component: <CoachCard onStartSession={() => console.log("Start session clicked")} />
     },
     {
       type: 'settings',
