@@ -232,7 +232,7 @@ function App() {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="flex items-center space-x-2 group"
           >
-            <h1 className="app-logo">Hirly</h1>
+            <h1 className={`app-logo ${isMenuOpen ? 'active' : ''}`}>Hirly</h1>
             <ChevronDown 
               className={`w-5 h-5 text-white/60 transition-transform duration-200
                          ${isMenuOpen ? 'rotate-180' : ''}
@@ -248,6 +248,14 @@ function App() {
                       transition-all duration-200 origin-top
                       ${isMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
           >
+            {/* Section Header */}
+            <div className="px-4 py-2 border-b border-white/10">
+              <div className="flex items-center space-x-2">
+                <Briefcase className="w-4 h-4 text-white/60" />
+                <span className="text-sm font-medium text-white/60">Employer</span>
+              </div>
+            </div>
+
             {menuItems.map((item) => (
               <button
                 key={item.label}

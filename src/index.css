@@ -22,6 +22,17 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .app-logo.active {
+    text-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.4),
+      0 0 40px rgba(255, 255, 255, 0.2),
+      0 0 60px rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0.9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
