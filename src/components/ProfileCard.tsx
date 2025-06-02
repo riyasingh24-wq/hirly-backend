@@ -11,6 +11,7 @@ interface ProfileCardProps {
   skills: string[];
   onViewProfile: () => void;
   buttonLabel: string;
+  onAction?: (action: 'star' | 'heart') => void;
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({
@@ -19,7 +20,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   title,
   skills,
   onViewProfile,
-  buttonLabel
+  buttonLabel,
+  onAction
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showResume, setShowResume] = useState(false);
@@ -27,6 +29,15 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   const handleViewProfile = () => {
     setShowResume(true);
     onViewProfile();
+  };
+
+  const handleAction = (action: 'close' | 'star' | 'heart') => {
+    if (action === 'close') {
+      setShowResume(false);
+    } else if (onAction) {
+      onAction(action);
+      setShowResume(false);
+    }
   };
 
   if (showResume) {
@@ -37,6 +48,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         title={title}
         skills={skills}
         onClose={() => setShowResume(false)}
+        onAction={handleAction}
       />
     );
   }

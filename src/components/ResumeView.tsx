@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from './Avatar';
 import SkillTag from './SkillTag';
+import { X, Star, Heart, ChevronLeft } from 'lucide-react';
 
 interface ResumeViewProps {
   avatarSrc: string;
@@ -8,6 +9,7 @@ interface ResumeViewProps {
   title: string;
   skills: string[];
   onClose: () => void;
+  onAction: (action: 'close' | 'star' | 'heart') => void;
 }
 
 const ResumeView: React.FC<ResumeViewProps> = ({
@@ -15,7 +17,8 @@ const ResumeView: React.FC<ResumeViewProps> = ({
   name,
   title,
   skills,
-  onClose
+  onClose,
+  onAction
 }) => {
   return (
     <div className={`
@@ -24,6 +27,36 @@ const ResumeView: React.FC<ResumeViewProps> = ({
       transition-all duration-300 ease-in-out
       w-[700px]
     `}>
+      {/* Header with Actions */}
+      <div className="flex justify-between items-center mb-6">
+        <button
+          onClick={() => onAction('close')}
+          className="p-2 hover:bg-white/10 rounded-xl transition-colors duration-200"
+        >
+          <ChevronLeft className="w-6 h-6 text-white" />
+        </button>
+        <div className="flex space-x-2">
+          <button
+            onClick={() => onAction('star')}
+            className="p-2 hover:bg-white/10 rounded-xl transition-colors duration-200"
+          >
+            <Star className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={() => onAction('heart')}
+            className="p-2 hover:bg-white/10 rounded-xl transition-colors duration-200"
+          >
+            <Heart className="w-6 h-6 text-white" />
+          </button>
+          <button
+            onClick={() => onAction('close')}
+            className="p-2 hover:bg-white/10 rounded-xl transition-colors duration-200"
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+        </div>
+      </div>
+
       <div className="flex h-[500px]">
         {/* Left Side - Profile Overview */}
         <div className="w-1/3 pr-4 border-r border-white/10">
@@ -42,14 +75,6 @@ const ResumeView: React.FC<ResumeViewProps> = ({
                 ))}
               </div>
             </div>
-
-            <button
-              onClick={onClose}
-              className="mt-6 px-4 py-2 bg-white/10 hover:bg-white/20 
-                         text-white rounded-xl transition-colors duration-200"
-            >
-              Close
-            </button>
           </div>
         </div>
 
