@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Mail, Phone, Globe, Github, Linkedin, Briefcase, Award, GraduationCap, ChevronRight } from 'lucide-react';
+import { Briefcase, GraduationCap, ArrowLeft } from 'lucide-react';
 import GradientButton from './GradientButton';
 
 interface ProfileCardProps {
@@ -24,104 +24,84 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div 
-      className={`
-        relative w-[350px] h-[480px] rounded-2xl overflow-hidden
-        bg-white/10 backdrop-blur-md border border-white/20
-        shadow-xl shadow-black/20
-        transition-all duration-300 ease-in-out
-        ${isExpanded ? 'h-[600px]' : ''}
-      `}
-    >
-      {/* Profile Header */}
-      <div className="absolute top-6 left-6 right-6 flex items-center space-x-4">
-        <div className="w-16 h-16 rounded-xl overflow-hidden border-2 border-white/20">
-          <img 
-            src={avatarSrc} 
-            alt={name}
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div>
-          <h2 className="text-xl font-bold text-white">{name}</h2>
-          <p className="text-white/60">{title}</p>
-        </div>
-      </div>
+    <div className={`
+      bg-white/10 backdrop-blur-md rounded-2xl p-6
+      border border-white/20 shadow-xl overflow-hidden
+      transition-all duration-300 ease-in-out
+      ${isExpanded ? 'w-[700px]' : 'w-[350px]'}
+    `}>
+      <div className="flex h-[480px]">
+        {/* Main Profile View */}
+        <div className={`
+          flex flex-col items-center transition-all duration-300 ease-in-out
+          ${isExpanded ? 'w-1/3 pr-4' : 'w-full'}
+        `}>
+          {/* Profile Header */}
+          <div className="flex flex-col items-center space-y-4 mb-8">
+            <div className="w-24 h-24 rounded-xl overflow-hidden border-2 border-white/20">
+              <img 
+                src={avatarSrc} 
+                alt={name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-white mb-1">{name}</h2>
+              <p className="text-white/60 text-lg">{title}</p>
+            </div>
+          </div>
 
-      {/* Contact Info */}
-      <div className="absolute top-6 right-6 text-right">
-        <div className="flex flex-col items-end space-y-2">
-          <button className="text-white/60 hover:text-white transition-colors">
-            <Mail className="w-5 h-5" />
-          </button>
-          <button className="text-white/60 hover:text-white transition-colors">
-            <Phone className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
+          {/* Skills */}
+          <div className="flex-1 w-full">
+            <div className="flex flex-wrap justify-center gap-2">
+              {skills.map((skill, index) => (
+                <span 
+                  key={index}
+                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20
+                           text-white/80 text-sm"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
 
-      {/* Main Content */}
-      <div className="absolute top-32 left-6 right-6">
-        {/* Skills */}
-        <div className="mb-6">
-          <h3 className="text-white/80 font-medium mb-2">Skills</h3>
-          <div className="flex flex-wrap gap-2">
-            {skills.map((skill, index) => (
-              <span 
-                key={index}
-                className="px-3 py-1 rounded-full bg-white/10 border border-white/20
-                         text-white/80 text-sm"
-              >
-                {skill}
-              </span>
-            ))}
+          {/* View Profile Button */}
+          <div className="mt-8 w-full">
+            <GradientButton onClick={() => {
+              setIsExpanded(!isExpanded);
+              onViewProfile();
+            }}>
+              {buttonLabel}
+            </GradientButton>
           </div>
         </div>
 
-        {/* Quick Info */}
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center text-white/60">
-            <MapPin className="w-4 h-4 mr-2" />
-            <span>San Francisco, CA</span>
-          </div>
-          <div className="flex items-center text-white/60">
-            <Globe className="w-4 h-4 mr-2" />
-            <span>www.example.com</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <button className="text-white/60 hover:text-white transition-colors">
-              <Github className="w-5 h-5" />
-            </button>
-            <button className="text-white/60 hover:text-white transition-colors">
-              <Linkedin className="w-5 h-5" />
+        {/* Resume View */}
+        <div className={`
+          w-2/3 pl-4 border-l border-white/10 flex flex-col
+          transition-all duration-300 ease-in-out
+          ${isExpanded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}
+        `}>
+          {/* Header */}
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-xl font-bold text-white">Resume</h3>
+            <button 
+              onClick={() => setIsExpanded(false)}
+              className="flex items-center text-white/60 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 mr-1" />
+              Back
             </button>
           </div>
-        </div>
 
-        <div className="flex justify-between items-center">
-          <button 
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="text-white/60 hover:text-white transition-colors flex items-center"
-          >
-            {isExpanded ? 'Show Less' : 'Show More'}
-            <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
-          </button>
-          <GradientButton onClick={onViewProfile}>
-            {buttonLabel}
-          </GradientButton>
-        </div>
-      </div>
-
-      {/* Expanded Content */}
-      {isExpanded && (
-        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/50 to-transparent">
           {/* Experience */}
-          <div className="mb-4">
-            <h4 className="text-white/80 font-medium mb-2 flex items-center">
+          <div className="mb-6">
+            <h4 className="text-white/80 font-medium mb-4 flex items-center">
               <Briefcase className="w-4 h-4 mr-2" />
               Experience
             </h4>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
                 <h5 className="text-white/90 font-medium">Senior Frontend Developer</h5>
                 <p className="text-white/60 text-sm">Google • 2020 - Present</p>
@@ -143,7 +123,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
 
           {/* Education */}
           <div>
-            <h4 className="text-white/80 font-medium mb-2 flex items-center">
+            <h4 className="text-white/80 font-medium mb-4 flex items-center">
               <GraduationCap className="w-4 h-4 mr-2" />
               Education
             </h4>
@@ -156,7 +136,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
