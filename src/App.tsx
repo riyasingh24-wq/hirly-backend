@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, Users, MessageSquare, BarChart2, Settings, Briefcase } from 'lucide-react';
 import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
 import SettingsCard from './components/SettingsCard';
@@ -17,6 +17,8 @@ function App() {
   const [swipeDirection, setSwipeDirection] = useState<'left' | 'right' | null>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // All candidate profiles
   const candidateProfiles = [
@@ -191,6 +193,30 @@ function App() {
     console.log(`${action} action clicked`);
   };
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const menuItems = [
+    { icon: <Users className="w-5 h-5" />, label: 'Candidates', index: 0 },
+    { icon: <MessageSquare className="w-5 h-5" />, label: 'Messages', index: 1 },
+    { icon: <BarChart2 className="w-5 h-5" />, label: 'Dashboard', index: 2 },
+    { icon: <Briefcase className="w-5 h-5" />, label: 'Coach', index: 3 },
+    { icon: <Settings className="w-5 h-5" />, label: 'Settings', index: 4 },
+  ];
+
+  const handleMenuSelect = (index: number) => {
+    setCurrentCardIndex(index);
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
       <Iridescence 
@@ -199,9 +225,44 @@ function App() {
         amplitude={0.05} // Keeping the same amplitude
       />
       
-      {/* Logo */}
-      <div className="fixed top-8 left-8 z-20">
-        <h1 className="app-logo">Hirly</h1>
+      {/* Logo with Dropdown */}
+      <div className="fixed top-8 left-8 z-20" ref={menuRef}>
+        <div className="relative">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex items-center space-x-2 group"
+          >
+            <h1 className="app-logo">Hirly</h1>
+            <ChevronDown 
+              className={`w-5 h-5 text-white/60 transition-transform duration-200
+                         ${isMenuOpen ? 'rotate-180' : ''}
+                         group-hover:text-white`} 
+            />
+          </button>
+
+          {/* Dropdown Menu */}
+          <div 
+            className={`absolute top-full left-0 mt-2 w-48 rounded-xl
+                      bg-white/10 backdrop-blur-md border border-white/20
+                      shadow-xl shadow-black/20 overflow-hidden
+                      transition-all duration-200 origin-top
+                      ${isMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+          >
+            {menuItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleMenuSelect(item.index)}
+                className={`w-full px-4 py-3 flex items-center space-x-3
+                          text-white/80 hover:text-white hover:bg-white/10
+                          transition-colors duration-200
+                          ${currentCardIndex === item.index ? 'bg-white/10 text-white' : ''}`}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Navigation Arrows */}
