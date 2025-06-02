@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, ChevronDown, Users, MessageSquare, BarChart2, Settings, Briefcase } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, Users, MessageSquare, BarChart2, Settings, Briefcase, Building2 } from 'lucide-react';
 import ProfileCard from './components/ProfileCard';
 import MessagesCard from './components/MessagesCard';
 import SettingsCard from './components/SettingsCard';
@@ -214,7 +214,8 @@ function App() {
     { icon: <MessageSquare className="w-5 h-5" />, label: 'Messages', index: 1 },
     { icon: <BarChart2 className="w-5 h-5" />, label: 'Dashboard', index: 2 },
     { icon: <Briefcase className="w-5 h-5" />, label: 'Coach', index: 3 },
-    { icon: <Settings className="w-5 h-5" />, label: 'Settings', index: 4 },
+    { icon: <Building2 className="w-5 h-5" />, label: 'Profile', index: 4 },
+    { icon: <Settings className="w-5 h-5" />, label: 'Settings', index: 5 },
   ];
 
   const handleMenuSelect = (index: number) => {
