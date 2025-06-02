@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Avatar from './Avatar';
 import SkillTag from './SkillTag';
 import GradientButton from './GradientButton';
+import ResumeView from './ResumeView';
 
 interface ProfileCardProps {
   avatarSrc: string;
@@ -21,6 +22,24 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   buttonLabel
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [showResume, setShowResume] = useState(false);
+
+  const handleViewProfile = () => {
+    setShowResume(true);
+    onViewProfile();
+  };
+
+  if (showResume) {
+    return (
+      <ResumeView
+        avatarSrc={avatarSrc}
+        name={name}
+        title={title}
+        skills={skills}
+        onClose={() => setShowResume(false)}
+      />
+    );
+  }
 
   return (
     <div 
@@ -76,7 +95,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         {/* Button Section */}
         <div className="w-full mt-auto">
           <GradientButton
-            onClick={onViewProfile}
+            onClick={handleViewProfile}
             className="w-full"
           >
             {buttonLabel}
