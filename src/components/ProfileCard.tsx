@@ -27,7 +27,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       className="relative w-[350px] bg-white/10 backdrop-blur-md rounded-2xl p-6
                  border border-white/20 shadow-xl overflow-hidden
                  transition-all duration-300 ease-in-out
-                 hover:bg-white/15 hover:shadow-2xl"
+                 hover:bg-white/15 hover:shadow-2xl
+                 flex flex-col items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -38,29 +39,31 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         ${isHovered ? 'opacity-100' : 'opacity-0'}
       `} />
 
-      <div className="relative z-10">
-        <div className="flex items-center space-x-4 mb-6">
+      <div className="relative z-10 w-full flex flex-col items-center">
+        {/* Avatar and Name Section */}
+        <div className="flex flex-col items-center mb-6">
           <div className={`
-            transition-transform duration-300
+            transition-transform duration-300 mb-4
             ${isHovered ? 'scale-110' : 'scale-100'}
           `}>
             <Avatar src={avatarSrc} size="large" />
           </div>
-          <div>
+          <div className="text-center">
             <h2 className="text-2xl font-bold text-white mb-1">{name}</h2>
             <p className="text-white/80">{title}</p>
           </div>
         </div>
 
-        <div className="mb-6">
-          <h3 className="text-white/90 text-sm font-semibold mb-3">Skills</h3>
-          <div className="flex flex-wrap gap-2">
+        {/* Skills Section */}
+        <div className="w-full mb-6">
+          <h3 className="text-white/90 text-sm font-semibold mb-3 text-center">Skills</h3>
+          <div className="flex flex-wrap justify-center gap-2">
             {skills.map((skill, index) => (
               <div
                 key={skill}
                 className={`
                   transition-all duration-300
-                  ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'}
+                  ${isHovered ? 'scale-105' : 'scale-100'}
                 `}
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
@@ -70,10 +73,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           </div>
         </div>
 
-        <div className={`
-          transition-all duration-300
-          ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-        `}>
+        {/* Button Section */}
+        <div className="w-full mt-auto">
           <GradientButton
             onClick={onViewProfile}
             className="w-full"
