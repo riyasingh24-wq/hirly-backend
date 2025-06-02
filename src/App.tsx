@@ -9,6 +9,7 @@ import CoachCard from './components/CoachCard';
 import Iridescence from './components/Iridescence';
 import CompanyProfileCard from './components/CompanyProfileCard';
 import LandingPage from './components/LandingPage';
+import JobCard from './components/JobCard';
 
 function App() {
   const [selectedRole, setSelectedRole] = useState<'candidate' | 'employer' | null>(null);
@@ -136,7 +137,22 @@ function App() {
     handleNextCandidate();
   };
 
-  const cards = [
+  const menuItems = selectedRole === 'employer' ? [
+    { icon: <Users className="w-5 h-5" />, label: 'Candidates', index: 0 },
+    { icon: <MessageSquare className="w-5 h-5" />, label: 'Messages', index: 1 },
+    { icon: <BarChart2 className="w-5 h-5" />, label: 'Dashboard', index: 2 },
+    { icon: <Briefcase className="w-5 h-5" />, label: 'Coach', index: 3 },
+    { icon: <Building2 className="w-5 h-5" />, label: 'Profile', index: 4 },
+    { icon: <Settings className="w-5 h-5" />, label: 'Settings', index: 5 },
+  ] : [
+    { icon: <Briefcase className="w-5 h-5" />, label: 'Jobs', index: 0 },
+    { icon: <MessageSquare className="w-5 h-5" />, label: 'Messages', index: 1 },
+    { icon: <Briefcase className="w-5 h-5" />, label: 'Coach', index: 2 },
+    { icon: <Building2 className="w-5 h-5" />, label: 'Profile', index: 3 },
+    { icon: <Settings className="w-5 h-5" />, label: 'Settings', index: 4 },
+  ];
+
+  const cards = selectedRole === 'employer' ? [
     {
       type: 'candidates',
       component: (
@@ -161,6 +177,31 @@ function App() {
     {
       type: 'dashboard',
       component: <Dashboard />
+    },
+    {
+      type: 'coach',
+      component: <CoachCard onStartSession={() => console.log("Start session clicked")} />
+    },
+    {
+      type: 'company',
+      component: <CompanyProfileCard />
+    },
+    {
+      type: 'settings',
+      component: <SettingsCard />
+    }
+  ] : [
+    {
+      type: 'jobs',
+      component: <JobCard />
+    },
+    {
+      type: 'messages',
+      component: (
+        <MessagesCard 
+          onViewProfile={() => console.log("View profile clicked")}
+        />
+      )
     },
     {
       type: 'coach',
@@ -211,15 +252,6 @@ function App() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const menuItems = [
-    { icon: <Users className="w-5 h-5" />, label: 'Candidates', index: 0 },
-    { icon: <MessageSquare className="w-5 h-5" />, label: 'Messages', index: 1 },
-    { icon: <BarChart2 className="w-5 h-5" />, label: 'Dashboard', index: 2 },
-    { icon: <Briefcase className="w-5 h-5" />, label: 'Coach', index: 3 },
-    { icon: <Building2 className="w-5 h-5" />, label: 'Profile', index: 4 },
-    { icon: <Settings className="w-5 h-5" />, label: 'Settings', index: 5 },
-  ];
-
   const handleMenuSelect = (index: number) => {
     setCurrentCardIndex(index);
     setIsMenuOpen(false);
@@ -232,9 +264,9 @@ function App() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
       <Iridescence 
-        color={[0.4, 0.2, 0.8]} // Deeper purple/blue color
-        speed={0.2} // Much slower speed for subtle effect
-        amplitude={0.05} // Keeping the same amplitude
+        color={[0.4, 0.2, 0.8]}
+        speed={0.2}
+        amplitude={0.05}
       />
       
       {/* Logo with Dropdown */}
@@ -264,7 +296,9 @@ function App() {
             <div className="px-4 py-2 border-b border-white/10">
               <div className="flex items-center space-x-2">
                 <Briefcase className="w-4 h-4 text-white/60" />
-                <span className="text-sm font-medium text-white/60">Employer</span>
+                <span className="text-sm font-medium text-white/60">
+                  {selectedRole === 'employer' ? 'Employer' : 'Candidate'}
+                </span>
               </div>
             </div>
 
@@ -328,7 +362,7 @@ function App() {
         >
           {cards[currentCardIndex].component}
         </div>
-        {currentCardIndex === 0 && (
+        {currentCardIndex === 0 && selectedRole === 'employer' && (
           <div className={`
             transition-all duration-300
             ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}
