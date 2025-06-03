@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, UserPlus, LogIn } from 'lucide-react';
+import { ArrowRight, UserPlus, LogIn, Star, Quote, Briefcase, Users, Shield, Sparkles, MessageCircle, Globe, CheckCircle } from 'lucide-react';
 import CardSwap, { Card } from './CardSwap';
 import GradientText from './GradientText';
 
@@ -108,47 +108,103 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
         </div>
       </div>
 
-      {/* About Section */}
-      <section id="about" className="py-24 px-8 max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">About Hirly</h2>
-        <p className="text-white/80 text-lg">Hirly is on a mission to revolutionize hiring with AI-powered job matching, making the process faster, fairer, and more enjoyable for everyone.</p>
-      </section>
-
-      {/* How It Works Section */}
-      <section id="how" className="py-24 px-8 max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">How It Works</h2>
-        <p className="text-white/80 text-lg">Create a profile, swipe through jobs or candidates, and connect instantly. Our AI matches you with the best opportunities based on your skills and preferences.</p>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-24 px-8 max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-white mb-4">Pricing</h2>
-        <div className="flex flex-col md:flex-row gap-8 justify-center mt-8">
-          <div className="flex-1 bg-white/10 rounded-2xl p-8 border border-white/20">
-            <h3 className="text-2xl font-bold text-white mb-2">Free</h3>
-            <p className="text-white/70 mb-4">Basic job matching and messaging</p>
-            <div className="text-3xl font-bold text-white mb-4">$0</div>
-            <ul className="text-white/60 mb-6 space-y-2">
-              <li>✔️ Curated job matches</li>
-              <li>✔️ Basic messaging</li>
-              <li>✔️ Profile creation</li>
-            </ul>
-            <button className="w-full py-2 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold shadow-lg hover:from-pink-600 hover:to-red-600 transition-colors" onClick={() => setShowSignUp(true)}>Get Started</button>
+      {/* Testimonials Section */}
+      <section className="py-24 px-8 max-w-5xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-white mb-10">What Our Users Say</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Quote className="w-8 h-8 text-pink-400 mb-4" />
+            <p className="text-white/80 mb-4">“Hirly matched me with my dream job in days. The process was smooth and actually fun!”</p>
+            <div className="flex items-center gap-2">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial" className="w-10 h-10 rounded-full border-2 border-pink-400" />
+              <span className="text-white/70 font-semibold">Alex J.</span>
+            </div>
           </div>
-          <div className="flex-1 bg-white/10 rounded-2xl p-8 border border-white/20">
-            <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-            <p className="text-white/70 mb-4">Advanced features for power users</p>
-            <div className="text-3xl font-bold text-white mb-4">$9<span className="text-lg font-normal">/mo</span></div>
-            <ul className="text-white/60 mb-6 space-y-2">
-              <li>✔️ Everything in Free</li>
-              <li>✔️ AI-powered recommendations</li>
-              <li>✔️ Priority support</li>
-              <li>✔️ Advanced analytics</li>
-            </ul>
-            <button className="w-full py-2 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold shadow-lg hover:from-pink-600 hover:to-red-600 transition-colors" onClick={() => setShowSignUp(true)}>Start Free Trial</button>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Quote className="w-8 h-8 text-blue-400 mb-4" />
+            <p className="text-white/80 mb-4">“We found top talent for our startup faster than ever. The AI recommendations are spot on.”</p>
+            <div className="flex items-center gap-2">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial" className="w-10 h-10 rounded-full border-2 border-blue-400" />
+              <span className="text-white/70 font-semibold">Chris T.</span>
+            </div>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Quote className="w-8 h-8 text-green-400 mb-4" />
+            <p className="text-white/80 mb-4">“The privacy features and instant messaging made my job search stress-free. Highly recommend!”</p>
+            <div className="flex items-center gap-2">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Testimonial" className="w-10 h-10 rounded-full border-2 border-green-400" />
+              <span className="text-white/70 font-semibold">Maya P.</span>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* Industry Facts Section */}
+      <section className="py-16 px-8 max-w-5xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-white mb-10">Job Hunting by the Numbers</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center">
+            <Briefcase className="w-10 h-10 text-purple-400 mb-3" />
+            <span className="text-4xl font-bold text-white mb-2">80%</span>
+            <span className="text-white/70">of jobs are never posted online</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <Users className="w-10 h-10 text-blue-400 mb-3" />
+            <span className="text-4xl font-bold text-white mb-2">2x</span>
+            <span className="text-white/70">faster hiring with AI matching</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <Globe className="w-10 h-10 text-green-400 mb-3" />
+            <span className="text-4xl font-bold text-white mb-2">50+</span>
+            <span className="text-white/70">countries with active users</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Us Section */}
+      <section className="py-24 px-8 max-w-5xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-white mb-10">Why Choose Hirly?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Sparkles className="w-10 h-10 text-pink-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">AI Matching</h3>
+            <p className="text-white/70">Get matched with jobs and candidates that fit your skills and goals.</p>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <MessageCircle className="w-10 h-10 text-blue-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Instant Messaging</h3>
+            <p className="text-white/70">Connect and chat instantly with employers or candidates.</p>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Shield className="w-10 h-10 text-green-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Privacy First</h3>
+            <p className="text-white/70">Your data is secure and you control your visibility at all times.</p>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <CheckCircle className="w-10 h-10 text-purple-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Modern Design</h3>
+            <p className="text-white/70">Enjoy a beautiful, intuitive interface on any device.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="w-full bg-white/10 border-t border-white/20 py-10 px-8 mt-16">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <Sparkles className="w-8 h-8 text-pink-400" />
+            <span className="text-2xl font-bold text-white tracking-wide">Hirly</span>
+          </div>
+          <div className="flex gap-8 text-white/70 text-sm">
+            <a href="#about" className="hover:text-white transition">About</a>
+            <a href="#pricing" className="hover:text-white transition">Pricing</a>
+            <a href="#" className="hover:text-white transition">Contact</a>
+            <a href="#" className="hover:text-white transition">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition">Terms</a>
+          </div>
+          <div className="text-white/40 text-xs">&copy; {new Date().getFullYear()} Hirly. All rights reserved.</div>
+        </div>
+      </footer>
 
       {/* Authentication Modals (placeholders) */}
       {showSignUp && (
