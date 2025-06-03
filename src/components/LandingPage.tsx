@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, UserPlus, LogIn } from 'lucide-react';
 import CardSwap, { Card } from './CardSwap';
+import GradientText from './GradientText';
 
 interface LandingPageProps {
   onAuthSuccess: (userType: 'candidate' | 'employer') => void;
@@ -60,8 +61,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
       {/* Hero Section */}
       <div className="relative flex-1 flex flex-row items-center justify-end" style={{ minHeight: 600 }}>
         {/* Blurred Background Text on the left */}
-        <div className="flex-1 flex items-center pl-[5vw] z-0 select-none pointer-events-none">
-          <span className="text-[18vw] font-extrabold text-white/10 tracking-tight" style={{letterSpacing: '-0.1em'}}>HIRLY</span>
+        <div className="flex-1 flex flex-col items-start justify-center z-0 select-none pointer-events-none">
+          <GradientText
+            colors={["#6a11cb", "#2575fc", "#3a1c71", "#5f2c82", "#2b5876"]}
+            animationSpeed={8}
+            className="text-[18vw] font-extrabold tracking-tight"
+          >
+            HIRLY
+          </GradientText>
         </div>
         {/* CardSwap Animated Card Stack on the right */}
         <div className="relative z-10 flex flex-col items-center mr-[5vw] -mt-24" style={{ height: 600, position: 'relative' }}>
