@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, UserPlus, LogIn, Star, Quote, Briefcase, Users, Shield, Sparkles, MessageCircle, Globe, CheckCircle } from 'lucide-react';
 import CardSwap, { Card } from './CardSwap';
 import GradientText from './GradientText';
+import { motion } from 'framer-motion';
 
 interface LandingPageProps {
   onAuthSuccess: (userType: 'candidate' | 'employer') => void;
@@ -30,6 +31,54 @@ const carouselCards = [
     cta: true,
   },
 ];
+
+// Animated Stat Circle component
+const AnimatedStat = ({ icon: Icon, value, label, color }: { icon: any, value: number, label: string, color: string }) => {
+  const [inView, setInView] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => { if (ref.current) observer.unobserve(ref.current); };
+  }, []);
+  return (
+    <div ref={ref} className="flex flex-col items-center">
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={inView ? { scale: 1, opacity: 1 } : {}}
+        transition={{ duration: 0.6, type: 'spring' }}
+        className="relative mb-4"
+      >
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle cx="55" cy="55" r="48" stroke="#22223b" strokeWidth="10" fill="none" />
+          <motion.circle
+            cx="55" cy="55" r="48" stroke={color} strokeWidth="10" fill="none"
+            strokeDasharray={2 * Math.PI * 48}
+            strokeDashoffset={inView ? 2 * Math.PI * 48 * (1 - value / 100) : 2 * Math.PI * 48}
+            strokeLinecap="round"
+            initial={false}
+            animate={{ strokeDashoffset: inView ? 2 * Math.PI * 48 * (1 - value / 100) : 2 * Math.PI * 48 }}
+            transition={{ duration: 1.2, delay: 0.2 }}
+          />
+        </svg>
+        <Icon className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 ${color}`} />
+      </motion.div>
+      <motion.span
+        className="text-4xl font-bold text-white mb-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.3 }}
+      >
+        {inView ? value : 0}
+        {label === 'countries with active users' ? '+' : label === 'faster hiring with AI matching' ? 'x' : '%'}
+      </motion.span>
+      <span className="text-white/70 text-lg text-center max-w-[160px]">{label}</span>
+    </div>
+  );
+};
 
 const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -139,25 +188,49 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
         </div>
       </section>
 
-      {/* Industry Facts Section */}
+      {/* Industry Facts Section (Animated Infographic) */}
       <section className="py-16 px-8 max-w-5xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-white mb-10">Job Hunting by the Numbers</h2>
+        <div className="flex flex-col md:flex-row gap-12 justify-center items-center">
+          <AnimatedStat icon={Briefcase} value={80} label="of jobs are never posted online" color="text-purple-400" />
+          <AnimatedStat icon={Users} value={2} label="faster hiring with AI matching" color="text-blue-400" />
+          <AnimatedStat icon={Globe} value={50} label="countries with active users" color="text-green-400" />
+        </div>
+      </section>
+
+      {/* Awesome Features Section */}
+      <section className="py-24 px-8 max-w-5xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-white mb-10">Awesome Features</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="flex flex-col items-center">
-            <Briefcase className="w-10 h-10 text-purple-400 mb-3" />
-            <span className="text-4xl font-bold text-white mb-2">80%</span>
-            <span className="text-white/70">of jobs are never posted online</span>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Sparkles className="w-10 h-10 text-pink-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">AI Coach for Candidates</h3>
+            <p className="text-white/70">Personalized interview prep, resume tips, and career advice powered by AI. Get ready to land your dream job!</p>
           </div>
-          <div className="flex flex-col items-center">
-            <Users className="w-10 h-10 text-blue-400 mb-3" />
-            <span className="text-4xl font-bold text-white mb-2">2x</span>
-            <span className="text-white/70">faster hiring with AI matching</span>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Sparkles className="w-10 h-10 text-blue-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">AI Coach for Employers</h3>
+            <p className="text-white/70">Smart candidate screening, interview question generation, and hiring insights to help you build the best team.</p>
           </div>
-          <div className="flex flex-col items-center">
-            <Globe className="w-10 h-10 text-green-400 mb-3" />
-            <span className="text-4xl font-bold text-white mb-2">50+</span>
-            <span className="text-white/70">countries with active users</span>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <MessageCircle className="w-10 h-10 text-green-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Real-Time Collaboration</h3>
+            <p className="text-white/70">Chat, schedule, and collaborate instantly with candidates or employers—all in one place.</p>
           </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 px-8 max-w-3xl mx-auto text-center">
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-3xl p-12 shadow-2xl flex flex-col items-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to experience the future of job hunting?</h2>
+          <p className="text-white/80 text-lg mb-8">Sign up now and join thousands of candidates and employers using Hirly to find their perfect match.</p>
+          <button
+            className="px-8 py-4 rounded-xl bg-white text-pink-600 font-bold text-lg shadow-lg hover:bg-pink-100 transition-colors"
+            onClick={() => setShowSignUp(true)}
+          >
+            Get Started Free
+          </button>
         </div>
       </section>
 
