@@ -64,29 +64,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
           <span className="text-[18vw] font-extrabold text-white/10 tracking-tight" style={{letterSpacing: '-0.1em'}}>HIRLY</span>
         </div>
         {/* CardSwap Animated Card Stack on the right */}
-        <div className="relative z-10 flex flex-col items-center mr-[5vw]" style={{ height: 600, position: 'relative' }}>
+        <div className="relative z-10 flex flex-col items-center mr-[5vw] -mt-24" style={{ height: 600, position: 'relative' }}>
           <CardSwap cardDistance={60} verticalDistance={70} delay={5000} pauseOnHover={false}>
             <Card>
-              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl">
+              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl">
                 <h2 className="text-3xl font-bold text-white mb-2">Swipe to find</h2>
                 <h3 className="text-2xl text-white/70 mb-2">New opportunities</h3>
                 <p className="text-white/80 text-lg mb-6">Browse through curated job matches tailored to your skills and preferences.</p>
               </div>
             </Card>
             <Card>
-              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl">
+              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl">
                 <h2 className="text-3xl font-bold text-white mb-2">Who is it for?</h2>
                 <p className="text-white/80 text-lg mb-6">Hirly is for job seekers and employers who want a fast, modern, and AI-powered hiring experience.</p>
               </div>
             </Card>
             <Card>
-              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl">
+              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl">
                 <h2 className="text-3xl font-bold text-white mb-2">How it works</h2>
                 <p className="text-white/80 text-lg mb-6">Create a profile, swipe through jobs or candidates, and connect instantly. Our AI matches you with the best opportunities.</p>
               </div>
             </Card>
             <Card>
-              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl">
+              <div className="flex flex-col items-center justify-center h-full w-full p-8 text-center bg-white/10 backdrop-blur-lg rounded-3xl border border-white/20 shadow-2xl">
                 <h2 className="text-3xl font-bold text-white mb-2">Ready to get started?</h2>
                 <p className="text-white/80 text-lg mb-6">Sign up now to unlock your next opportunity!</p>
                 <button
