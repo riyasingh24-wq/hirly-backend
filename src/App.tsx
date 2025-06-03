@@ -13,6 +13,7 @@ import JobCard from './components/JobCard';
 
 function App() {
   const [selectedRole, setSelectedRole] = useState<'candidate' | 'employer' | null>(null);
+  const [userType, setUserType] = useState<'candidate' | 'employer' | null>(null);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [currentCandidateIndex, setCurrentCandidateIndex] = useState(0);
   const [currentJobIndex, setCurrentJobIndex] = useState(0);
@@ -347,7 +348,11 @@ function App() {
   };
 
   if (!isAuthenticated) {
-    return <LandingPage onAuthSuccess={() => setIsAuthenticated(true)} />;
+    return <LandingPage onAuthSuccess={(type) => {
+      setUserType(type);
+      setSelectedRole(type);
+      setIsAuthenticated(true);
+    }} />;
   }
 
   return (

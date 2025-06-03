@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, UserPlus, LogIn } from 'lucide-react';
 
 interface LandingPageProps {
-  onAuthSuccess: () => void;
+  onAuthSuccess: (userType: 'candidate' | 'employer') => void;
 }
 
 const carouselCards = [
@@ -33,6 +33,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [userType, setUserType] = useState<'candidate' | 'employer'>('candidate');
 
   const nextCard = () => setCarouselIndex((i) => (i + 1) % carouselCards.length);
   const prevCard = () => setCarouselIndex((i) => (i - 1 + carouselCards.length) % carouselCards.length);
@@ -42,7 +43,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
     e.preventDefault();
     setShowSignUp(false);
     setShowLogin(false);
-    onAuthSuccess();
+    onAuthSuccess(userType);
   };
 
   return (
@@ -144,6 +145,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
             <form className="flex flex-col gap-4" onSubmit={handleAuth}>
               <input type="email" placeholder="Email" className="p-3 rounded-xl border border-gray-200" required />
               <input type="password" placeholder="Password" className="p-3 rounded-xl border border-gray-200" required />
+              <div className="flex gap-4 items-center justify-center">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="candidate"
+                    checked={userType === 'candidate'}
+                    onChange={() => setUserType('candidate')}
+                    className="accent-pink-500"
+                  />
+                  <span>Candidate</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="employer"
+                    checked={userType === 'employer'}
+                    onChange={() => setUserType('employer')}
+                    className="accent-pink-500"
+                  />
+                  <span>Employer</span>
+                </label>
+              </div>
               <button type="submit" className="py-3 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold shadow-lg">Create Account</button>
             </form>
             <div className="mt-4 text-center text-sm">
@@ -162,6 +187,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
             <form className="flex flex-col gap-4" onSubmit={handleAuth}>
               <input type="email" placeholder="Email" className="p-3 rounded-xl border border-gray-200" required />
               <input type="password" placeholder="Password" className="p-3 rounded-xl border border-gray-200" required />
+              <div className="flex gap-4 items-center justify-center">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="candidate"
+                    checked={userType === 'candidate'}
+                    onChange={() => setUserType('candidate')}
+                    className="accent-pink-500"
+                  />
+                  <span>Candidate</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="employer"
+                    checked={userType === 'employer'}
+                    onChange={() => setUserType('employer')}
+                    className="accent-pink-500"
+                  />
+                  <span>Employer</span>
+                </label>
+              </div>
               <button type="submit" className="py-3 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold shadow-lg">Log In</button>
             </form>
             <div className="mt-4 text-center text-sm">
