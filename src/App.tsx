@@ -26,6 +26,7 @@ function App() {
   const touchStartX = useRef<number | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Job listings data
   const jobListings = [
@@ -345,8 +346,8 @@ function App() {
     setIsMenuOpen(false);
   };
 
-  if (!selectedRole) {
-    return <LandingPage onSelectRole={setSelectedRole} />;
+  if (!isAuthenticated) {
+    return <LandingPage onAuthSuccess={() => setIsAuthenticated(true)} />;
   }
 
   return (
