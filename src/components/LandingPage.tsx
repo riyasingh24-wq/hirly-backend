@@ -61,11 +61,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
       {/* Hero Section */}
       <div className="relative flex-1 flex flex-row items-center justify-end" style={{ minHeight: 600 }}>
         {/* Blurred Background Text on the left */}
-        <div className="flex-1 flex flex-col items-start justify-center z-0 select-none pointer-events-none">
+        <div className="flex-1 flex flex-col items-start justify-center z-0 select-none pointer-events-none pl-0 ml-0">
           <GradientText
-            colors={["#6a11cb", "#2575fc", "#3a1c71", "#5f2c82", "#2b5876"]}
+            colors={["#6a11cb", "#2575fc", "#3a1859", "#6a11cb", "#1e215d"]}
             animationSpeed={8}
-            className="text-[18vw] font-extrabold tracking-tight"
+            className="text-[18vw] font-extrabold tracking-tight text-left -ml-8"
           >
             HIRLY
           </GradientText>
