@@ -198,42 +198,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
         </div>
       </section>
 
-      {/* Awesome Features Section */}
-      <section className="py-24 px-8 max-w-5xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-white mb-10">Awesome Features</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
-            <Sparkles className="w-10 h-10 text-pink-400 mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">AI Coach for Candidates</h3>
-            <p className="text-white/70">Personalized interview prep, resume tips, and career advice powered by AI. Get ready to land your dream job!</p>
-          </div>
-          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
-            <Sparkles className="w-10 h-10 text-blue-400 mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">AI Coach for Employers</h3>
-            <p className="text-white/70">Smart candidate screening, interview question generation, and hiring insights to help you build the best team.</p>
-          </div>
-          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
-            <MessageCircle className="w-10 h-10 text-green-400 mb-4" />
-            <h3 className="text-xl font-bold text-white mb-2">Real-Time Collaboration</h3>
-            <p className="text-white/70">Chat, schedule, and collaborate instantly with candidates or employers—all in one place.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section className="py-20 px-8 max-w-3xl mx-auto text-center">
-        <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-3xl p-12 shadow-2xl flex flex-col items-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to experience the future of job hunting?</h2>
-          <p className="text-white/80 text-lg mb-8">Sign up now and join thousands of candidates and employers using Hirly to find their perfect match.</p>
-          <button
-            className="px-8 py-4 rounded-xl bg-white text-pink-600 font-bold text-lg shadow-lg hover:bg-pink-100 transition-colors"
-            onClick={() => setShowSignUp(true)}
-          >
-            Get Started Free
-          </button>
-        </div>
-      </section>
-
       {/* Why Us Section */}
       <section className="py-24 px-8 max-w-5xl mx-auto text-center">
         <h2 className="text-3xl font-bold text-white mb-10">Why Choose Hirly?</h2>
@@ -258,6 +222,47 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
             <h3 className="text-xl font-bold text-white mb-2">Modern Design</h3>
             <p className="text-white/70">Enjoy a beautiful, intuitive interface on any device.</p>
           </div>
+        </div>
+      </section>
+
+      {/* Awesome Features Section */}
+      <section className="py-24 px-8 max-w-5xl mx-auto text-center">
+        <h2 className="text-3xl font-bold text-white mb-10">Awesome Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Sparkles className="w-10 h-10 text-pink-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">AI Coach for All</h3>
+            <p className="text-white/70">Personalized AI coaching for both candidates and employers: get interview prep, resume tips, smart screening, and hiring insights.</p>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <CheckCircle className="w-10 h-10 text-green-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Free Forever for Job Hunters</h3>
+            <p className="text-white/70">Job seekers can use Hirly for free—always. No hidden fees, no paywalls, just opportunities.</p>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <Sparkles className="w-10 h-10 text-blue-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">Modern UI</h3>
+            <p className="text-white/70">Enjoy a beautiful, intuitive interface that makes job hunting and hiring a pleasure on any device.</p>
+          </div>
+          <div className="bg-white/10 rounded-2xl p-8 border border-white/20 shadow-lg flex flex-col items-center">
+            <MessageCircle className="w-10 h-10 text-purple-400 mb-4" />
+            <h3 className="text-xl font-bold text-white mb-2">No Ghosting Policy</h3>
+            <p className="text-white/70">We encourage transparency and communication. Get notified if a match is no longer interested—no more wondering.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 px-8 max-w-3xl mx-auto text-center">
+        <div className="bg-gradient-to-r from-pink-500 to-purple-600 rounded-3xl p-12 shadow-2xl flex flex-col items-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to experience the future of job hunting?</h2>
+          <p className="text-white/80 text-lg mb-8">Sign up now and join thousands of candidates and employers using Hirly to find their perfect match.</p>
+          <button
+            className="px-8 py-4 rounded-xl bg-white text-pink-600 font-bold text-lg shadow-lg hover:bg-pink-100 transition-colors"
+            onClick={() => setShowSignUp(true)}
+          >
+            Get Started Free
+          </button>
         </div>
       </section>
 
