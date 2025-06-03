@@ -10,6 +10,7 @@ import Iridescence from './components/Iridescence';
 import CompanyProfileCard from './components/CompanyProfileCard';
 import LandingPage from './components/LandingPage';
 import JobCard from './components/JobCard';
+import AboutPage from './components/AboutPage';
 
 function App() {
   const [selectedRole, setSelectedRole] = useState<'candidate' | 'employer' | null>(null);

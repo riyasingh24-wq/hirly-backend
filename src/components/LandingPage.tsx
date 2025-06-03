@@ -4,6 +4,7 @@ import CardSwap, { Card } from './CardSwap';
 import GradientText from './GradientText';
 import { motion } from 'framer-motion';
 import Waves from './Waves';
+import AboutPage from './AboutPage';
 
 interface LandingPageProps {
   onAuthSuccess: (userType: 'candidate' | 'employer') => void;
@@ -86,6 +87,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
   const [showSignUp, setShowSignUp] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [userType, setUserType] = useState<'candidate' | 'employer'>('candidate');
+  const [showAbout, setShowAbout] = useState(false);
 
   const nextCard = () => setCarouselIndex((i) => (i + 1) % carouselCards.length);
   const prevCard = () => setCarouselIndex((i) => (i - 1 + carouselCards.length) % carouselCards.length);
@@ -117,9 +119,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
       />
       {/* Foreground Content Wrapper */}
       <div className="relative z-10">
+        {showAbout ? (
+          <AboutPage onBack={() => setShowAbout(false)} />
+        ) : (
+        <>
         {/* Top Nav */}
         <nav className="flex justify-end items-center px-12 py-6 text-white/90 text-lg gap-10">
-          <a href="#about" className="hover:text-white transition">About</a>
+          <button type="button" onClick={() => setShowAbout(true)} className="hover:text-white transition bg-transparent border-0 outline-none cursor-pointer">About</button>
           <a href="#how" className="hover:text-white transition">How It Works</a>
           <a href="#pricing" className="hover:text-white transition">Pricing</a>
           <button onClick={() => setShowLogin(true)} className="ml-8 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 transition flex items-center gap-2"><LogIn className="w-5 h-5" /> Login</button>
@@ -386,6 +392,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
               </div>
             </div>
           </div>
+        )}
+        </>
         )}
       </div>
     </div>
