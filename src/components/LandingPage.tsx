@@ -59,8 +59,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
 
       {/* Hero Section */}
       <div className="relative flex-1 flex flex-row items-center justify-end" style={{ minHeight: 600 }}>
-        {/* Blurred Background Text */}
-        <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-0">
+        {/* Blurred Background Text on the left */}
+        <div className="flex-1 flex items-center pl-[5vw] z-0 select-none pointer-events-none">
           <span className="text-[18vw] font-extrabold text-white/10 tracking-tight" style={{letterSpacing: '-0.1em'}}>HIRLY</span>
         </div>
         {/* CardSwap Animated Card Stack on the right */}
