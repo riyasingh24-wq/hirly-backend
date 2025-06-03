@@ -297,9 +297,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
               <a href="#" className="hover:text-white transition">Contact</a>
               <a href="#" className="hover:text-white transition">Privacy Policy</a>
               <a href="#" className="hover:text-white transition">Terms</a>
-            </div>
+                    </div>
             <div className="text-white/40 text-xs">&copy; {new Date().getFullYear()} Hirly. All rights reserved.</div>
-          </div>
+                  </div>
         </footer>
 
         {/* Authentication Modals (placeholders) */}
@@ -342,8 +342,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onAuthSuccess }) => {
                 Already have an account?{' '}
                 <button className="text-pink-500 hover:underline" onClick={() => { setShowSignUp(false); setShowLogin(true); }}>Log in</button>
               </div>
-            </div>
-          </div>
+                    </div>
+                  </div>
         )}
         {showLogin && (
           <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
