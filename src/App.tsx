@@ -29,6 +29,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
 
   // Job listings data
   const jobListings = [
@@ -357,10 +358,10 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-slate-900 text-white">
       {/* Mobile Menu Button */}
       <button
-        className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-white/10 backdrop-blur-md lg:hidden"
+        className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-white/15 backdrop-blur-md lg:hidden hover:bg-white/20"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
         <svg
@@ -390,21 +391,45 @@ function App() {
       {/* Sidebar/Menu */}
       <div
         ref={menuRef}
-        className={`fixed top-0 left-0 h-full w-64 bg-white/10 backdrop-blur-md border-r border-white/20 transform transition-transform duration-300 ease-in-out z-40 ${
+        className={`fixed top-0 left-0 h-full bg-slate-900/95 backdrop-blur-md border-r border-white/10 transform transition-all duration-300 ease-in-out z-40 ${
           isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0`}
+        } lg:translate-x-0 ${
+          isSidebarCollapsed ? 'w-16' : 'w-64'
+        }`}
       >
-        <div className="p-6">
-          <h1 className="app-logo mb-8">Hirly</h1>
+        <div className="p-4">
+          <div 
+            className="relative mb-8 cursor-pointer"
+            onMouseEnter={() => setIsSidebarCollapsed(false)}
+            onMouseLeave={() => setIsSidebarCollapsed(true)}
+          >
+            <h1 className={`app-logo transition-all duration-300 ${isSidebarCollapsed ? 'text-xl' : 'text-3xl'}`}>
+              {isSidebarCollapsed ? 'H' : 'Hirly'}
+            </h1>
+            {!isSidebarCollapsed && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsSidebarCollapsed(true);
+                }}
+                className="absolute -right-2 top-1/2 -translate-y-1/2 p-1 rounded-full bg-white/10 hover:bg-white/20"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+            )}
+          </div>
           <nav className="space-y-2">
             {menuItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => handleMenuSelect(item.index)}
-                className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors"
+                className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors text-white/90 hover:text-white group"
+                title={isSidebarCollapsed ? item.label : ''}
               >
                 {item.icon}
-                <span>{item.label}</span>
+                <span className={`transition-all duration-300 ${isSidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
+                  {item.label}
+                </span>
               </button>
             ))}
           </nav>
@@ -412,7 +437,11 @@ function App() {
       </div>
 
       {/* Main Content */}
-      <div className={`lg:ml-64 min-h-screen transition-all duration-300 ${isMenuOpen ? 'ml-64' : 'ml-0'}`}>
+      <div 
+        className={`min-h-screen transition-all duration-300 ${
+          isSidebarCollapsed ? 'lg:ml-16' : 'lg:ml-64'
+        } ${isMenuOpen ? 'ml-64' : 'ml-0'}`}
+      >
         <div className="container mx-auto px-4 py-8">
           {!selectedRole ? (
             <LandingPage onSelectRole={setSelectedRole} />
@@ -422,13 +451,13 @@ function App() {
               <div className="mt-8 flex justify-center space-x-4">
                 <button
                   onClick={handlePrevious}
-                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  className="p-2 rounded-full bg-white/15 hover:bg-white/20 transition-colors"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={handleNext}
-                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  className="p-2 rounded-full bg-white/15 hover:bg-white/20 transition-colors"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
