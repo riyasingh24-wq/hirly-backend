@@ -11,6 +11,7 @@ import CompanyProfileCard from './components/CompanyProfileCard';
 import LandingPage from './components/LandingPage';
 import JobCard from './components/JobCard';
 import AboutPage from './components/AboutPage';
+import { CardCarousel } from './components/CardCarousel';
 
 function App() {
   const [selectedRole, setSelectedRole] = useState<'candidate' | 'employer' | null>(null);
@@ -309,6 +310,14 @@ function App() {
     }
   ];
 
+  const handleCardClick = (index: number) => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setCurrentCardIndex(index);
+      setTimeout(() => setIsAnimating(false), 300);
+    }
+  };
+
   const handlePrevious = () => {
     if (!isAnimating) {
       setIsAnimating(true);
@@ -455,7 +464,33 @@ function App() {
             <LandingPage onSelectRole={setSelectedRole} />
           ) : (
             <div className="flex flex-col items-center">
-              {cards[currentCardIndex].component}
+              <div className="w-full">
+                <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans mb-8">
+                  Explore Your Dashboard
+                </h2>
+                <div className="relative min-h-[600px]">
+                  <div className="relative">
+                    <div className="opacity-40">
+                      <CardCarousel 
+                        cards={cards} 
+                        onCardClick={handleCardClick}
+                        currentIndex={currentCardIndex}
+                      />
+                    </div>
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] z-10">
+                      <div 
+                        className={`w-full rounded-3xl overflow-visible transition-all duration-500 ${
+                          isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                        }`}
+                      >
+                        <div className="p-4">
+                          {cards[currentCardIndex].component}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div className="mt-8 flex justify-center space-x-4">
                 <button
                   onClick={handlePrevious}
