@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { calculateSimilarity } from '../src/utils/calculateSimilarity.js';
+import { calculateSimilarity } from '../../src/utils/calculateSimilarity.js';
 
 describe("calculateSimilarity()", () => {
       it("should return 100 for identical inputs", () => {
