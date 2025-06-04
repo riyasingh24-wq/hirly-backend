@@ -477,9 +477,9 @@ function App() {
                         currentIndex={currentCardIndex}
                       />
                     </div>
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] z-10">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
                       <div 
-                        className={`w-full rounded-3xl overflow-visible transition-all duration-500 ${
+                        className={`rounded-3xl overflow-visible transition-all duration-500 ${
                           isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
                         }`}
                       >
