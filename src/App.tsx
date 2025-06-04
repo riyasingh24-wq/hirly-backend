@@ -357,118 +357,85 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4">
-      <Iridescence 
-        color={[0.4, 0.2, 0.8]}
-        speed={0.2}
-        amplitude={0.05}
-      />
-      
-      {/* Logo with Dropdown */}
-      <div className="fixed top-8 left-8 z-20" ref={menuRef}>
-        <div className="relative">
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center space-x-2 group"
-          >
-            <h1 className={`app-logo ${isMenuOpen ? 'active' : ''}`}>Hirly</h1>
-            <ChevronDown 
-              className={`w-5 h-5 text-white/60 transition-transform duration-200
-                         ${isMenuOpen ? 'rotate-180' : ''}
-                         group-hover:text-white`} 
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 text-white">
+      {/* Mobile Menu Button */}
+      <button
+        className="fixed top-4 right-4 z-50 p-2 rounded-lg bg-white/10 backdrop-blur-md lg:hidden"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        <svg
+          className="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          {isMenuOpen ? (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
             />
-          </button>
+          ) : (
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          )}
+        </svg>
+      </button>
 
-          {/* Dropdown Menu */}
-          <div 
-            className={`absolute top-full left-0 mt-2 w-48 rounded-xl
-                      bg-white/10 backdrop-blur-md border border-white/20
-                      shadow-xl shadow-black/20 overflow-hidden
-                      transition-all duration-200 origin-top
-                      ${isMenuOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
-          >
-            {/* Section Header */}
-            <div className="px-4 py-2 border-b border-white/10">
-              <div className="flex items-center space-x-2">
-                <Briefcase className="w-4 h-4 text-white/60" />
-                <span className="text-sm font-medium text-white/60">
-                  {selectedRole === 'employer' ? 'Employer' : 'Candidate'}
-                </span>
-              </div>
-            </div>
-
+      {/* Sidebar/Menu */}
+      <div
+        ref={menuRef}
+        className={`fixed top-0 left-0 h-full w-64 bg-white/10 backdrop-blur-md border-r border-white/20 transform transition-transform duration-300 ease-in-out z-40 ${
+          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:translate-x-0`}
+      >
+        <div className="p-6">
+          <h1 className="app-logo mb-8">Hirly</h1>
+          <nav className="space-y-2">
             {menuItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => handleMenuSelect(item.index)}
-                className={`w-full px-4 py-3 flex items-center space-x-3
-                          text-white/80 hover:text-white hover:bg-white/10
-                          transition-colors duration-200
-                          ${currentCardIndex === item.index ? 'bg-white/10 text-white' : ''}`}
+                className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors"
               >
                 {item.icon}
                 <span>{item.label}</span>
               </button>
             ))}
-          </div>
+          </nav>
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={handlePrevious}
-        className="fixed left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full 
-                 bg-white/10 backdrop-blur-md border border-white/10
-                 flex items-center justify-center
-                 transition-all duration-300
-                 hover:bg-white/20 hover:scale-105
-                 active:scale-95 focus:outline-none
-                 z-10"
-      >
-        <ChevronLeft className="w-6 h-6 text-white" />
-      </button>
-
-      <button
-        onClick={handleNext}
-        className="fixed right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full 
-                 bg-white/10 backdrop-blur-md border border-white/10
-                 flex items-center justify-center
-                 transition-all duration-300
-                 hover:bg-white/20 hover:scale-105
-                 active:scale-95 focus:outline-none
-                 z-10"
-      >
-        <ChevronRight className="w-6 h-6 text-white" />
-      </button>
-
-      <div className="flex flex-col items-center">
-        <div 
-          ref={cardRef}
-          onTouchStart={handleSwipeStart}
-          onTouchMove={handleSwipeMove}
-          onTouchEnd={handleSwipeEnd}
-          className={`
-            transition-all duration-300 transform
-            ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}
-            ${swipeDirection === 'left' ? 'translate-x-[-100vw]' : ''}
-            ${swipeDirection === 'right' ? 'translate-x-[100vw]' : ''}
-            hover:scale-[1.02] transition-transform
-          `}
-        >
-          {cards[currentCardIndex].component}
+      {/* Main Content */}
+      <div className={`lg:ml-64 min-h-screen transition-all duration-300 ${isMenuOpen ? 'ml-64' : 'ml-0'}`}>
+        <div className="container mx-auto px-4 py-8">
+          {!selectedRole ? (
+            <LandingPage onSelectRole={setSelectedRole} />
+          ) : (
+            <div className="flex flex-col items-center">
+              {cards[currentCardIndex].component}
+              <div className="mt-8 flex justify-center space-x-4">
+                <button
+                  onClick={handlePrevious}
+                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
-        {currentCardIndex === 0 && (
-          <div className={`
-            transition-all duration-300
-            ${isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}
-          `}>
-            <ActionButtons 
-              onDismiss={() => selectedRole === 'employer' ? handleCandidateAction('pass') : handleJobAction('pass')}
-              onFavorite={() => selectedRole === 'employer' ? handleCandidateAction('save') : handleJobAction('save')}
-              onLike={() => selectedRole === 'employer' ? handleCandidateAction('like') : handleJobAction('like')}
-            />
-          </div>
-        )}
       </div>
     </div>
   );
