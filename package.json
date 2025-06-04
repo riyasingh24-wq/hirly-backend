@@ -10,10 +10,11 @@
     "preview": "vite preview",
     "test": "mocha",
     "test:unit": "mocha \"test/unit/**/*.test.js\"",
-    "test:api": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+    "test:api": "cross-env NODE_ENV=test node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
   },
   "dependencies": {
     "chart.js": "^4.4.9",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "framer-motion": "^12.16.0",
     "gsap": "^3.13.0",
@@ -32,6 +33,7 @@
     "autoprefixer": "^10.4.18",
     "babel-jest": "^30.0.0-beta.3",
     "chai": "^5.2.0",
+    "cross-env": "^7.0.3",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
