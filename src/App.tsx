@@ -396,15 +396,15 @@ function App() {
         } lg:translate-x-0 ${
           isSidebarCollapsed ? 'w-16' : 'w-64'
         }`}
+        onMouseEnter={() => setIsSidebarCollapsed(false)}
+        onMouseLeave={() => setIsSidebarCollapsed(true)}
       >
         <div className="p-4">
           <div 
             className="relative mb-8 cursor-pointer"
-            onMouseEnter={() => setIsSidebarCollapsed(false)}
-            onMouseLeave={() => setIsSidebarCollapsed(true)}
           >
-            <h1 className={`app-logo transition-all duration-300 ${isSidebarCollapsed ? 'text-xl' : 'text-3xl'}`}>
-              {isSidebarCollapsed ? 'H' : 'Hirly'}
+            <h1 className={`app-logo transition-all duration-300 ${isSidebarCollapsed ? 'text-xl opacity-0' : 'text-3xl opacity-100'}`}>
+              Hirly
             </h1>
             {!isSidebarCollapsed && (
               <button
@@ -422,11 +422,19 @@ function App() {
             {menuItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => handleMenuSelect(item.index)}
-                className="w-full flex items-center space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors text-white/90 hover:text-white group"
+                onClick={() => {
+                  handleMenuSelect(item.index);
+                  // Don't collapse on mobile
+                  if (window.innerWidth >= 1024) {
+                    setIsSidebarCollapsed(true);
+                  }
+                }}
+                className="w-full flex items-center justify-center sm:justify-start space-x-3 p-3 rounded-lg hover:bg-white/10 transition-colors text-white/90 hover:text-white group"
                 title={isSidebarCollapsed ? item.label : ''}
               >
-                {item.icon}
+                <div className="min-w-[20px] flex items-center justify-center">
+                  {item.icon}
+                </div>
                 <span className={`transition-all duration-300 ${isSidebarCollapsed ? 'opacity-0 w-0' : 'opacity-100'}`}>
                   {item.label}
                 </span>
