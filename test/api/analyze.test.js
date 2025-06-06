@@ -22,3 +22,14 @@ describe("POST /api/analyze", () => {
     expect(res.body).toHaveProperty("error");
   });
 });
+
+it("should return a valid matchScore as a number", async () => {
+  const res = await request(app)
+    .post('/api/analyze')
+    .send({ resume: "HTML, CSS, JavaScript", job: "Frontend Developer" });
+
+  expect(typeof res.body.matchScore).toBe("number");
+  expect(res.body.matchScore).toBeGreaterThanOrEqual(0);
+  expect(res.body.matchScore).toBeLessThanOrEqual(100);
+});
+

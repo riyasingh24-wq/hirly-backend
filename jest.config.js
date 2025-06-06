@@ -1,7 +1,12 @@
-export default {
-      testEnvironment: 'node',
-      transform: {
-      '^.+\\.js$': 'babel-jest'
-      },
-      testPathIgnorePatterns: ["/node_modules/", "/test/unit/"]
-      };
+
+
+      export default {
+            testEnvironment: 'node',
+            transform: {
+              '^.+\\.js$': 'babel-jest'
+            },
+            moduleNameMapper: {
+              '^src/(.*)$': '<rootDir>/src/$1'
+            }
+          };
+          
