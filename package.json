@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "test": "jest",
     "test:unit": "mocha \"test/unit/**/*.test.js\"",
-    "test:api": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+    "test:api": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "status": 429,
+    "error": "Too many requests, please try again later."
   },
   "dependencies": {
     "chart.js": "^4.4.9",
@@ -24,6 +26,8 @@
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^18.3.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^3.25.53"
   },
   "devDependencies": {
