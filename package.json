@@ -12,7 +12,13 @@
     "test:unit": "mocha \"test/unit/**/*.test.js\"",
     "test:api": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
     "status": 429,
-    "error": "Too many requests, please try again later."
+    "error": "Too many requests, please try again later.",
+    "start": "node server.js",
+     "jest": {
+    "transform": {}
+            },
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+   "test:api": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage"
   },
   "dependencies": {
     "chart.js": "^4.4.9",
@@ -31,13 +37,15 @@
     "zod": "^3.25.53"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
+    "@babel/runtime": "^7.27.6",
     "@eslint/js": "^9.9.1",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
-    "babel-jest": "^30.0.0-beta.3",
+    "babel-jest": "^30.0.0",
     "chai": "^5.2.0",
     "cross-env": "^7.0.3",
     "eslint": "^9.9.1",

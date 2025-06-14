@@ -1,3 +1,9 @@
+import { jest } from '@jest/globals';
+
+jest.mock('url', () => ({
+  fileURLToPath: () => '/mocked/path',
+}));
+
 import request from 'supertest';
 import app from '../../src/app.js'; // ✅ Correct path if app.js is in /src
 

@@ -1,12 +1,11 @@
-
-
-      export default {
-            testEnvironment: 'node',
-            transform: {
-              '^.+\\.js$': 'babel-jest'
-            },
-            moduleNameMapper: {
-              '^src/(.*)$': '<rootDir>/src/$1'
-            }
-          };
-          
+export default {
+  testEnvironment: 'node',
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
+  transform: {},
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1'
+  },
+  transformIgnorePatterns: []
+};
