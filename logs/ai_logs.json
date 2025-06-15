@@ -1630,5 +1630,46 @@
       }
     ],
     "timestamp": "2025-06-14T16:40:08.880Z"
+  },
+  {
+    "route": "/api/analyze",
+    "input": {
+      "resume": "JS, React",
+      "job": "Frontend Dev"
+    },
+    "result": {
+      "matchScore": 88,
+      "message": "Analyzed JS, React for Frontend Dev"
+    },
+    "timestamp": "2025-06-15T05:16:45.485Z"
+  },
+  {
+    "route": "/api/analyze",
+    "input": {
+      "resume": "HTML, CSS, JavaScript",
+      "job": "Frontend Developer"
+    },
+    "result": {
+      "matchScore": 88,
+      "message": "Analyzed HTML, CSS, JavaScript for Frontend Developer"
+    },
+    "timestamp": "2025-06-15T05:16:45.529Z"
+  },
+  {
+    "route": "/api/match",
+    "input": {
+      "job": "Full Stack Developer"
+    },
+    "result": [
+      {
+        "name": "Candidate A",
+        "score": 95
+      },
+      {
+        "name": "Candidate B",
+        "score": 90
+      }
+    ],
+    "timestamp": "2025-06-15T05:16:46.158Z"
   }
 ]
