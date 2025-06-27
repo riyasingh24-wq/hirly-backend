@@ -6,8 +6,8 @@ export const apiLimiter = rateLimit({
     max: 5, // limit each IP to 5 requests per windowMs
     handler: (req, res) => {
         res.status(429).json({
-            status: 429,
-            error: "Too many requests, please try again later."
+    status: 429,
+    error: "Too many requests, please try again later."
         });
     },
     standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
@@ -27,5 +27,5 @@ export const createCustomLimiter = (windowMs, max) => {
         },
         standardHeaders: true,
         legacyHeaders: false,
-    });
+});
 };

@@ -8,13 +8,14 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerOptions from './docs/swagger.js'; // Swagger configuration for API docs
 import { apiLimiter } from './utils/rateLimiter.js'; // Rate limiting middleware
+import verifyToken from './middleware/verifyToken.js'; // JWT verification middleware
 
 import analyzeRoutes from './routes/analyze.js'; // Handles /api/analyze
 import matchRoutes from './routes/match.js';     // Handles /api/match
 import interviewRoutes from './routes/interview.js'; // Handles /api/interview
 
 const app = express();
- 
+
 // Parse incoming JSON requests and put the parsed data in req.body
 app.use(express.json());
 console.log("Incoming request: Body parsed successfully (if applicable).");
@@ -30,13 +31,12 @@ app.use((req, res, next) => {
 // =====================
 console.log("📝 Applying analyzeRoutes middleware...");
 
-// Apply rate limiting ONLY to /api/analyze to prevent abuse and DoS attacks
-// apiLimiter allows max 5 requests/min per IP (see utils/rateLimiter.js)
-app.use('/api/analyze', apiLimiter, analyzeRoutes);  // POST /api/analyze
+// Apply rate limiting and JWT verification to /api/analyze
+app.use('/api/analyze', apiLimiter, verifyToken, analyzeRoutes);  // POST /api/analyze
 
-// Other API routes (no rate limiting by default)
-app.use('/api', matchRoutes);      // POST /api/match
-app.use('/api', interviewRoutes);  // POST /api/interview
+// Apply JWT verification to /api/match and /api/interview
+app.use('/api', verifyToken, matchRoutes);      // POST /api/match
+app.use('/api', verifyToken, interviewRoutes);  // POST /api/interview
 
 // =====================
 // SWAGGER API DOCS

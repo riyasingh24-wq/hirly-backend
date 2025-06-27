@@ -1,0 +1,46 @@
+{
+  "info": {
+    "_postman_id": "e62d7e19-a7a1-4e84-b001-8914df5418fa",
+    "name": "Supabase Auth Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Login - Get JWT Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "apikey",
+            "value": "YOUR_SUPABASE_ANON_KEY_HERE",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"bo601009@mail1.com\",\n  \"password\": \"boogl12005boo\",\n  \"grant_type\": \"password\"\n}"
+        },
+        "url": {
+          "raw": "https://occrvhahkgvyzvpnsjz.supabase.co/auth/v1/token",
+          "protocol": "https",
+          "host": [
+            "occrvhahkgvyzvpnsjz",
+            "supabase",
+            "co"
+          ],
+          "path": [
+            "auth",
+            "v1",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
